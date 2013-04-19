@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>友情链接 - iFindBook</title>
+    [% INCLUDE src/html_head.tt %]
+</head>
+<body>
+    <div class="outer-wrapper">
+        [% INCLUDE src/search_logo_link.tt %]
+        <div class="intro">
+            <h4 class="intro-head">友情链接</h4>
+            <div class="intro-content">
+                <p></p>
+            </div>
+        </div>
+    </div>
+    [% INCLUDE src/footer.tt %]
+</body>
+</html>
+
+
+

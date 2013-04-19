@@ -1,0 +1,50 @@
+html, body {
+    height: 100%;
+}
+
+a.search-logo {
+    margin-left: 35px;
+}
+
+div.logo-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3px;
+    width: 80%;
+}
+
+div.index-form-div {
+    width: 80%;
+}
+
+.ct-srch-tb {
+    width: 90%;
+}
+
+.srch-btn {
+    width: 8%;
+}
+
+div.top-form-container {
+    margin-left: 180px;
+    width: 76%;
+}
+
+.top-form .top-tb {
+    width: 90%;
+}
+
+.top-form .top-btn {
+    width: 8%;
+}
+
+
+div.search-result {
+    margin-left: 35px;
+    width: 80%;
+}
+
+div.intro {
+    width: 80%;
+}
+

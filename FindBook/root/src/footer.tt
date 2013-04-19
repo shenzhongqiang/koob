@@ -1,0 +1,12 @@
+<div class="footer">
+    <div class="links">
+        <div class="link first"><a href="[% c.uri_for_action('/aboutus/index') %]">关于我们</a></div>
+        <div class="link"><a href="[% c.uri_for_action('/feedback/index') %]">意见反馈</a></div>
+        <div class="link"><a href="[% c.uri_for_action('/friendlink/index') %]">友情链接</a></div>
+        <div class="link"><a href="[% c.uri_for_action('/contactus/index') %]">联系我们</a></div>
+    </div>
+    <div class="copyright">
+        <span>©2013 iFindBook 版权所有</span>
+        <script src="http://s20.cnzz.com/stat.php?id=5224328&web_id=5224328&show=pic" language="JavaScript"></script>
+    </div>
+</div>

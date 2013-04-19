@@ -1,0 +1,5 @@
+<div class="logo-background">
+    <div class="logo-container">
+        <a class="aboutus-logo" href="[% c.uri_for_action('/index') %]">iFindBook</a>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>关于我们 - iFindBook</title>
+    [% INCLUDE src/html_head.tt %]
+</head>
+<body>
+    <div class="outer-wrapper">
+        [% INCLUDE src/search_logo_link.tt %]
+        <div class="intro">
+            <h4 class="intro-head">关于我们</h4>
+            <div class="intro-content">
+                <p>iFindBook 力争做最优秀的电子书搜索引擎。</p>
+                <p>使用iFindBook，您可以搜索pdf, epub, chm, txt, mobi等各类电子书、电子文档。我们为用户提供最快最准确的搜索结果，尽最大努力满足不同用户的需求，最大程度地提升用户体验。</p>
+            </div>
+        </div>
+    </div>
+    [% INCLUDE src/footer.tt %]
+</body>
+</html>
+
+

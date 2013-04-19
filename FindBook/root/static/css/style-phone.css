@@ -1,0 +1,80 @@
+html, body {
+    height: 100%;
+}
+
+div.footer {
+    font-size: 12px;
+}
+
+div.links {
+    width: 268px;
+}
+
+div.links > .link {
+    display: inline;
+    margin-left: 10px;
+}
+
+div.links > .first {
+    margin-left: 0;
+}
+
+div.index-form-div {
+    width: 90%;
+}
+
+div.ctrl-container {
+    width: 100%;
+}
+
+.ct-srch-tb {
+    width: 85%;
+}
+
+.srch-btn {
+    width: 12%;
+}
+
+div.logo-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3px;
+    width: 90%;
+}
+
+div.top-form-container {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+.top-form .top-tb {
+    width: 85%;
+}
+
+.top-form .top-btn {
+    width: 12%;
+}
+
+div.search-result {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+.hero-unit h1 {
+    font-size: 48px;
+}
+
+a.search-logo {
+    display: none;
+}
+
+div.intro {
+    width: 90%;
+}
+
+button.btn-modal-close {
+    font-size: 10px;
+}

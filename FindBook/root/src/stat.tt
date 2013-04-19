@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stat - iFindBook</title>
+    [% INCLUDE src/html_head.tt %]
+</head>
+<body>
+    <div class="stats">
+        <div class="stats-kw">
+            <h3>Keyword</h3>
+            <table class="table table-condensed">
+            [% FOREACH i IN keywords %]
+               <tr><td>[% i.ts %]</td><td>[% i.query %]</td><tr/>
+            [% END %]
+            </table>
+        </div>
+        <div class="stats-ct">
+            <h3>Clicktrack</h3>
+            <table class="table table-condensed">
+            [% FOREACH i IN clicks %]
+                <tr><td>[% i.ts %]</td><td>[% i.url %]</td><tr/>
+            [% END %]
+            </table>
+        </div>
+    </div>
+    [% INCLUDE src/footer.tt %]
+</body>
+</html>
+

@@ -1,0 +1,13 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span8 offset2">
+            <form id="bk-srch" method="get" action="/search">
+                <div class="input-append span12">
+                    <input id="srch-q" class="span10" type="text" name="q" value="[% q %]"/>
+                    <input id="srch-start" type="hidden" name="page_no" value=1 />
+                    <input id="srch-btn" class="btn btn-primary span2" type="submit" value="搜一搜" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

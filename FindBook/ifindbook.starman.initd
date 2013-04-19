@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Daemon::Control;
+
+my $starman = '/usr/local/bin/starman';
+my $app_psgi = '/var/www/ifindbook/FindBook/findbook.psgi';
+Daemon::Control->new({
+    name        => "iFindBook",
+    lsb_start   => '$local_fs $remote_fs $network $syslog',
+    lsb_stop    => '$local_fs $remote_fs $network $syslog',
+    lsb_sdesc   => 'iFindBook daemon',
+    lsb_desc    => 'iFindBook daemon autostart',
+    program     => "$starman $app_psgi",
+    pid_file    => '/tmp/ifindbook.pid',
+    stderr_file => '/tmp/ifindbook.err',
+    stdout_file => '/tmp/ifindbook.out',
+    fork        => 2,
+
+})->run;

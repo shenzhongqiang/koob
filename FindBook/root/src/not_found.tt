@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>404 Not Found - iFindBook</title>
+    [% INCLUDE src/html_head.tt %]
+</head>
+<body>
+    <div class="outer-wrapper">
+        [% INCLUDE src/search_logo_link.tt %]
+        <div class="intro">
+            <h4 class="intro-head">Not Found</h4>
+            <div class="intro-content">
+                <p>你要找的网页不存在哦，去别处看看吧。</p>
+            </div>
+        </div>
+    </div>
+    [% INCLUDE src/footer.tt %]
+</body>
+</html>
+
+
+
