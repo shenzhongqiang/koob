@@ -134,7 +134,8 @@ div.search-result{
 }
 
 div.search-item{
-    margin-bottom:30px
+    margin-bottom:30px;
+    word-wrap:break-word;
 }
 
 div.search-page{
