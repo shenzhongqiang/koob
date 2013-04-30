@@ -57,6 +57,34 @@ div.index-form-div{
     width:62%
 }
 
+.content {
+    margin-top: 100px;
+}
+
+.logo-bg {
+    background:url("/static/images/ifindbook_large.png") no-repeat top left;
+    background-size:347px 86px;
+    width: 347px;
+    height: 86px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.logo-bg img {
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+.logo-desc {
+    font-size: 18px;
+}
+
+.logo-bg-ct {
+    font-size: 60px;
+    color: #696969;
+}
+
 div.ctrl-container{
     width:100%
 }
@@ -199,18 +227,27 @@ button.btn-modal-close{
 }
 
 @media(min-width:768px) and (max-width:1024px){
+.content {
+    margin-top: px;
+}
+.logo-bg {
+    background-size:300px 73px;
+    width: 300px;
+    height: 73px;
+}
+
 a.search-logo{
     margin-left:35px
 }
 
-div.logo-container{
+.logo-container{
     margin-left:auto;
     margin-right:auto;
     padding-top:3px;
     width:80%
 }
 
-div.index-form-div{
+.index-form-div{
     width:80%
 }
 
@@ -248,6 +285,16 @@ div.intro{
 }
 
 @media(max-width:767px){
+.content {
+    margin-top:50px;
+}
+
+.logo-bg {
+    background-size:225 55px;
+    width: 225px;
+    height: 55px;
+}
+
 div.footer{
     font-size:12px
 }

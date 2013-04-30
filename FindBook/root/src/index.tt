@@ -6,9 +6,19 @@
 </head>
 <body>
     <div class="outer-wrapper">
-        <div class="hero-unit">
-            <h1 class="text-center">iFindBook</h1>
-            <p class="text-center muted" style="margin-top:10px;">最优秀的电子书搜索引擎</p>
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li class="active"><a href="/">首页</a><li>
+                    <li><a href="/recommend">好书推荐</a><li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+<!--            <h1 class="text-center logo-bg-ct">iFindBook</h1> -->
+            <div class="logo-bg">
+            </div>
+            <p class="text-center muted logo-desc" style="margin-top:10px;">最优秀的电子书搜索引擎</p>
         </div>
         <div class="index-form-div">
             <form method="get" action="/search">
@@ -17,7 +27,8 @@
                     <input id="srch-start" type="hidden" name="page_no" value=1 />
                     <button type="submit" class="btn btn-primary srch-btn"><i class="icon-search icon-white"></i></button>
                 </div>
-                <p class="muted">搜索小贴士：输入书名+空格+格式可指定电子书格式哦，如<a href=[% c.uri_for_action('/search/index', {q => "Learning Perl epub", page_no => 1}) %]>Learning Perl epub</a></p>
+<!--                <p class="muted">搜索小贴士：输入书名+空格+格式可指定电子书格式哦，如<a href=[% c.uri_for_action('/search/index', {q => "Learning Perl epub", page_no => 1}) %]>Learning Perl epub</a></p>
+-->
             </form>
         </div>
     </div>
