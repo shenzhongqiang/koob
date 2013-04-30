@@ -137,8 +137,9 @@ div.logo-container{
 }
 
 .top-form-container{
-    margin-left:240px;
-    width:75%
+    margin-top:35px;
+    margin-left:70px;
+    width:55%
 }
 
 .top-form-container .top-form{
@@ -260,8 +261,8 @@ a.search-logo{
 }
 
 div.top-form-container{
-    margin-left:180px;
-    width:76%
+    margin-left:35px;
+    width:80%
 }
 
 .top-form .top-tb{
