@@ -174,6 +174,19 @@ div.outer-wrapper{
     min-height:100%
 }
 
+div.ra-tab-list {
+    margin-top: 20px;
+    width: 120px;
+    float: left;
+}
+
+div.ra-tab-content {
+    margin-left: 50px;
+    margin-top:20px;
+    float: left;
+    width: 250px;
+}
+
 div.intro{
     margin-left:auto;
     margin-right:auto;
@@ -225,6 +238,26 @@ button.btn-modal-close{
 .stats-ct{
     margin-bottom:180px;
     width: 100%;
+}
+
+.tag-add {
+    margin-top: 60px;
+    width: 50%;
+}
+.all-tags {
+    margin-top: 60px;
+    margin-bottom:180px;
+    width:50%;
+}
+.remove {
+    width: 12px;
+    cursor: pointer;
+}
+.all-tags .icon-remove {
+    opacity: 0.25;
+}
+.all-tags .icon-remove:hover {
+    opacity: 1;
 }
 
 @media(min-width:768px) and (max-width:1024px){
