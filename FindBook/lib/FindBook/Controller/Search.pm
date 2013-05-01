@@ -29,9 +29,11 @@ sub index :Path {
     my $pages_ar = $result_hr->{pages};
     my $results_ar = $result_hr->{results};
     
-    $c->model('FindBookDB::Keyword')->create({
-        query   => $q,
-    });
+    if($q ne "dnspod") {
+        $c->model('FindBookDB::Keyword')->create({
+            query   => $q,
+        });
+    }
 
     $c->stash(
         template => "src/search.tt", 

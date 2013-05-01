@@ -163,7 +163,8 @@ div.search-result{
 }
 
 div.search-item{
-    margin-bottom:30px
+    margin-bottom:30px;
+    word-wrap:break-word;
 }
 
 div.search-page{
@@ -258,6 +259,29 @@ button.btn-modal-close{
 }
 .all-tags .icon-remove:hover {
     opacity: 1;
+}
+.book-add {
+    margin-top:60px;
+    width:50%;
+}
+.all-books {
+    margin-top: 60px;
+    margin-bottom:180px;
+    width:50%;
+}
+.all-books .icon-remove {
+    opacity: 0.25;
+}
+.all-books .icon-remove:hover {
+    opacity: 1;
+}
+
+.book-desc{
+    width:100%;
+}
+.error {
+    margin-top:60px;
+    width:50%;
 }
 
 @media(min-width:768px) and (max-width:1024px){

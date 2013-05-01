@@ -24,10 +24,11 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     
+    my $num = $c->req->params->{num};
     my @keywords;
     my @clicks;
-    my @kw_rows = $c->model('FindBookDB::Keyword')->search(undef, {order_by => {-desc => "ts"}, rows => 100})->all;
-    my @ct_rows = $c->model('FindBookDB::Clicktrack')->search(undef, {order_by => {-desc => "ts"}, rows => 100})->all;
+    my @kw_rows = $c->model('FindBookDB::Keyword')->search(undef, {order_by => {-desc => "ts"}, rows => $num})->all;
+    my @ct_rows = $c->model('FindBookDB::Clicktrack')->search(undef, {order_by => {-desc => "ts"}, rows => $num})->all;
     foreach(@kw_rows) {
         my %kw = $_->get_columns();
         push(@keywords, \%kw);

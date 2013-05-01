@@ -38,6 +38,7 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key("id");
+__PACKAGE__->belongs_to("tag", "FindBook::Schema::Result::Tag", {"foreign.id" => "self.tag_id"});
 
 
 # Created by DBIx::Class::Schema::Loader v0.07014 @ 2013-03-17 18:18:10

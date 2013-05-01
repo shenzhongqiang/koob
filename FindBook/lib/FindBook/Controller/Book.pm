@@ -1,6 +1,7 @@
 package FindBook::Controller::Book;
 use Moose;
 use namespace::autoclean;
+use JSON;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -23,8 +24,35 @@ Catalyst Controller.
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
+    
+    my @tag_rows = $c->model('FindBookDB::Tag')->all;
+    my %tags;
+    foreach my $row (@tag_rows) {
+        my $catalog = $row->catalog;
+        my $subcat = $row->subcat;
+        if(!defined $tags{$catalog}) {
+            my @subcats = ($subcat);
+            $tags{$catalog} = \@subcats;
+        }
+        else {
+            my $subcat_ar = $tags{$catalog};
+            push(@$subcat_ar, $subcat);
+        }
+    }
 
-    $c->stash(template => "src/book.tt");
+    my $json_tags = JSON->new->encode(\%tags);
+
+    my @book_rows = $c->model('FindBookDB::Book')->all;
+    my @all_books;
+    foreach my $row (@book_rows) {
+        my $book_hr = list_single_book($row);
+        push(@all_books, $book_hr);
+    }
+    $c->stash(
+        tags      => $json_tags,
+        all_books => \@all_books,
+        template  => "src/book.tt",
+    );
 }
 
 sub list :Local :Args(1) {
@@ -35,6 +63,67 @@ sub list :Local :Args(1) {
     $c->stash(template => "src/book.tt");
 }
 
+sub add :Local :Args(0) {
+    my ( $self, $c ) = @_;
+    
+    my $catalog = $c->req->params->{catalog};
+    my $subcat = $c->req->params->{subcat};
+    my $isbn = $c->req->params->{isbn};
+    my $title = $c->req->params->{title};
+    my $author = $c->req->params->{author};
+    my $pic = $c->req->params->{pic};
+    my $desc = $c->req->params->{description};
+    
+    my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
+    if(!defined $tag_row) {
+        my $msg = "Tag $catalog $subcat not found.";
+        $c->stash(
+            error   => $msg, 
+            template => "src/error.tt",
+        );
+        return;
+    }
+
+    my $tag_id = $tag_row->id;
+    $c->model('FindBookDB::Book')->create({
+        tag_id  => $tag_id,
+        isbn    => $isbn,
+        title   => $title,
+        author  => $author,
+        pic     => $pic,
+        description => $desc,
+    });
+    my $index_url = $c->uri_for_action('/book/index');
+    $c->response->redirect($index_url);
+}
+
+sub del :Local :Args(1) {
+    my ( $self, $c ) = @_;
+    
+    my $id = $c->req->arguments->[0];
+    
+    $c->model('FindBookDB::Book')->find({
+        id => $id,
+    })->delete;
+    my $index_url = $c->uri_for_action('/book/index');
+    $c->response->redirect($index_url);
+}
+
+sub list_single_book {
+    my $book_row = shift;
+    
+    my $tag_row = $book_row->tag;
+    return {
+        id      => $book_row->id,
+        catalog => $tag_row->catalog,
+        subcat  => $tag_row->subcat,
+        isbn    => $book_row->isbn,
+        title   => $book_row->title,
+        author  => $book_row->author,
+        pic     => $book_row->pic,
+        description => $book_row->description,
+    };
+}
 =head1 AUTHOR
 
 Zhongqiang Shen,,,

@@ -3,6 +3,12 @@
 <head>
     <title>书 - iFindBook</title>
     [% INCLUDE src/html_head.tt %]
+    <script>
+        var tags = [% tags %];
+        $(document).ready(function() {
+            book.init();
+        });
+    </script>
 </head>
 <body>
     <div class="outer-wrapper">
@@ -17,11 +23,59 @@
             </div>
         </div>
         
-        <div>
-            <h3>添加书</h3>
-            <form>
-                
+        <div class="container book-add">
+            <legend>添加书</legend>
+            <form action="[% c.uri_for_action('/book/add') %]" method="post">
+                <fieldset>
+                    <label class="control-label">catalog</label>
+                    <select name="catalog">
+                    </select>
+                    <label class="control-label">sub catalog</label>
+                    <select name="subcat"/>
+                    <select/>
+                    <label class="control-label">isbn</label>
+                    <input type="text" name="isbn"/><br/>
+                    <label class="control-label">title</label>
+                    <input type="text" name="title"/><br/>
+                    <label class="control-label">author</label>
+                    <input type="text" name="author"/><br/>
+                    <label class="control-label">pic</label>
+                    <input type="text" name="pic"/><br/>
+                    <label class="control-label">description</label>
+                    <textarea rows="20" class="book-desc" name="description"></textarea><br/>
+                    <button type="submit" class="btn">Add</button>
+                </fieldset>
             </form>
+        </div>
+
+        <div class="container all-books">
+            <legend>所有书</legend>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>catalog</th>
+                        <th>subcat</th>
+                        <th>isbn</th>
+                        <th>title</th>
+                        <th>pic</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [% FOREACH i IN all_books %]
+                    <tr>
+                        <td>[% i.id %]</td>
+                        <td>[% i.catalog %]</td>
+                        <td>[% i.subcat %]</td>
+                        <td>[% i.isbn %]</td>
+                        <td>[% i.title %]</td>
+                        <td>[% i.pic %]</td>
+                        <td class="remove"><a href="[% c.uri_for_action('/book/del') %]/[% i.id %]"><i class="icon-remove"></i></a></td>
+                    </tr>
+                    [% END %]
+                </tbody>
+            </table>
         </div>
     </div>
     
