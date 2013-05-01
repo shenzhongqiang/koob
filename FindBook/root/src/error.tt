@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>书 - iFindBook</title>
+    [% INCLUDE src/html_head.tt %]
+</head>
+<body>
+    <div class="outer-wrapper">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <ul class="nav">
+                        <li><a href="/">首页</a><li>
+                        <li><a href="/recommend">好书推荐</a><li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container error">
+            <div class="alert">
+                <strong>Error!</strong> [% error %]
+            </div>
+        </div>
+    </div>
+    
+    [% INCLUDE src/footer.tt %]
+</body>
+</html>
