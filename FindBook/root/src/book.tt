@@ -41,6 +41,8 @@
                     <select/>
                     <label class="control-label">title</label>
                     <input type="text" name="title"/><br/>
+                    <label class="control-label">rating</label>
+                    <input type="text" name="rating"/><br/>
                     <label class="control-label">author</label>
                     <input type="text" name="author"/><br/>
                     <label class="control-label">translator</label>
@@ -51,7 +53,7 @@
                     <input type="text" name="pubdate"/><br/>
                     <label class="control-label">pages</label>
                     <input type="text" name="pages"/><br/>
-                    <label class="control-label">pic</label>
+                    <label class="control-label">pic local path</label>
                     <input type="text" name="pic"/><br/>
                     <label class="control-label">description</label>
                     <textarea rows="20" class="book-desc" name="description"></textarea><br/>

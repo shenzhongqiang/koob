@@ -70,6 +70,7 @@ sub add :Local :Args(0) {
     my $subcat = $c->req->params->{subcat};
     my $isbn = $c->req->params->{isbn};
     my $title = $c->req->params->{title};
+    my $rating = $c->req->params->{rating};
     my $author = $c->req->params->{author};
     my $translator = $c->req->params->{translator};
     my $publisher = $c->req->params->{publisher};
@@ -94,6 +95,7 @@ sub add :Local :Args(0) {
         tag_id  => $tag_id,
         isbn    => $isbn,
         title   => $title,
+        rating  => $rating,
         author  => $author,
         translator  => $translator,
         publisher   => $publisher,

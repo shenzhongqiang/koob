@@ -6,6 +6,7 @@ use namespace::autoclean;
 use JSON;
 use Encode;
 use Try::Tiny;
+use File::Basename;
 use Request;
 
 BEGIN {extends 'Catalyst::Controller'; }
@@ -38,12 +39,27 @@ sub get_book :Local :Args(1) {
 
         my $data_hr = JSON->new->decode($resp);
         my %book;
+        my $pic = "";
         $book{isbn} = $isbn;
-        $book{rating} = $data_hr->{rating}->{average} || 0.0;
-        $book{img_url} = $data_hr->{image};
-        $book{pubdate} = $data_hr->{pubdate} || "";
-        $book{title} = $data_hr->{title};
-        $book{author_intro} = $data_hr->{author_intro} || "";
+        if(defined $data_hr->{rating}) {
+            $book{rating} = $data_hr->{rating}->{average} || 0.0;
+        }
+        if(defined $data_hr->{image}) {
+            my $img_url = $data_hr->{image};
+            my $ext = get_file_ext($img_url);
+            $pic = get_pic_path($isbn, $ext);
+            Request::download_file($img_url, $pic);
+            $book{img_url} = $img_url;
+        }
+        if(defined $data_hr->{pubdate}) {
+            $book{pubdate} = $data_hr->{pubdate};
+        }
+        if(defined $data_hr->{title}) {
+            $book{title} = $data_hr->{title};
+        }
+        if(defined $data_hr->{author_intro}) {
+            $book{author_intro} = $data_hr->{author_intro};
+        }
         my $translator_ar = $data_hr->{translator};
         if(defined $translator_ar) {
             $book{translator} = join(",", @$translator_ar);
@@ -51,12 +67,15 @@ sub get_book :Local :Args(1) {
         if(defined $data_hr->{pages}) {
             $book{pages} = $data_hr->{pages};
         }
-        $book{publisher} = $data_hr->{publisher} || "";
+        if(defined $data_hr->{publisher}) {
+            $book{publisher} = $data_hr->{publisher};
+        }
         my $author_ar = $data_hr->{author};
         if(defined $author_ar) {
             $book{author} = join(",", @$author_ar);
         }
         $book{description} = $data_hr->{summary};
+        
         
         foreach(keys %book) {
             my $key = $_;
@@ -78,6 +97,25 @@ sub get_book :Local :Args(1) {
     $c->forward('View::JSON');
 }
 
+
+sub get_pic_path {
+    my $isbn = shift;
+    my $ext = shift;
+
+    my $file = __FILE__;
+    my $dir = dirname($file);
+    my $pic_dir = "$dir/../../../root/static/pics/";
+    my $pic_path = $pic_dir . "$isbn.$ext";
+    return $pic_path;
+}
+
+sub get_file_ext {
+    my $img_url = shift;
+
+    my @array = split /\./, $img_url;
+    my $ext = pop @array;
+    return $ext;
+}
 
 =head1 AUTHOR
 
