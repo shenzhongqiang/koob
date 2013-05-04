@@ -35,6 +35,18 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 1, size => 31 },
   "description",
   { data_type => "text", is_nullable => 1},
+  "rating",
+  { data_type => "float", is_nullable => 1},
+  "pubdate",
+  { data_type => "date", is_nullable => 1},
+  "translator",
+  { data_type => "varchar", is_nullable => 1, size => 63},
+  "publisher",
+  { data_type => "varchar", is_nullable => 1, size => 63},
+  "pages",
+  { data_type => "int", is_nullable => 1},
+  "author_intro",
+  { data_type => "text", is_nullable => 1},
 );
 
 __PACKAGE__->set_primary_key("id");

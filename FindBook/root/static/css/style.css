@@ -283,6 +283,12 @@ button.btn-modal-close{
     margin-top:60px;
     width:50%;
 }
+.img-book {
+    display: block;
+    float: right;
+    width:102px;
+    height:145px;
+}
 
 @media(min-width:768px) and (max-width:1024px){
 .content {

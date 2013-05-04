@@ -27,22 +27,36 @@
             <legend>添加书</legend>
             <form action="[% c.uri_for_action('/book/add') %]" method="post">
                 <fieldset>
+                    <img src="/static/images/book_default.png" alt="img-book" class="img-polaroid img-book">
+                    <label class="control-label">isbn</label>
+                    <div class="input-append">
+                        <input type="text" name="isbn"/>
+                        <button class="btn" id="btn-load" type="button">Load</button>
+                    </div>
                     <label class="control-label">catalog</label>
                     <select name="catalog">
                     </select>
                     <label class="control-label">sub catalog</label>
                     <select name="subcat"/>
                     <select/>
-                    <label class="control-label">isbn</label>
-                    <input type="text" name="isbn"/><br/>
                     <label class="control-label">title</label>
                     <input type="text" name="title"/><br/>
                     <label class="control-label">author</label>
                     <input type="text" name="author"/><br/>
+                    <label class="control-label">translator</label>
+                    <input type="text" name="translator"/><br/>
+                    <label class="control-label">publisher</label>
+                    <input type="text" name="publisher"/><br/>
+                    <label class="control-label">pubdate</label>
+                    <input type="text" name="pubdate"/><br/>
+                    <label class="control-label">pages</label>
+                    <input type="text" name="pages"/><br/>
                     <label class="control-label">pic</label>
                     <input type="text" name="pic"/><br/>
                     <label class="control-label">description</label>
                     <textarea rows="20" class="book-desc" name="description"></textarea><br/>
+                    <label class="control-label">author_intro</label>
+                    <textarea rows="20" class="book-desc" name="author_intro"></textarea><br/>
                     <button type="submit" class="btn">Add</button>
                 </fieldset>
             </form>

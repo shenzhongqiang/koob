@@ -71,8 +71,13 @@ sub add :Local :Args(0) {
     my $isbn = $c->req->params->{isbn};
     my $title = $c->req->params->{title};
     my $author = $c->req->params->{author};
+    my $translator = $c->req->params->{translator};
+    my $publisher = $c->req->params->{publisher};
+    my $pubdate = $c->req->params->{pubdate};
+    my $pages = $c->req->params->{pages};
     my $pic = $c->req->params->{pic};
     my $desc = $c->req->params->{description};
+    my $author_intro = $c->req->params->{author_intro};
     
     my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
     if(!defined $tag_row) {
@@ -90,8 +95,13 @@ sub add :Local :Args(0) {
         isbn    => $isbn,
         title   => $title,
         author  => $author,
+        translator  => $translator,
+        publisher   => $publisher,
+        pubdate => $pubdate,
+        pages   => $pages,
         pic     => $pic,
         description => $desc,
+        author_intro=> $author_intro,
     });
     my $index_url = $c->uri_for_action('/book/index');
     $c->response->redirect($index_url);

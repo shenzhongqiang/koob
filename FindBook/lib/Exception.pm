@@ -1,8 +1,8 @@
 package Exception;
-
-sub error_send_request {
-    my $url = shift;
-    die "error occurred when requesting $url\n";
-}
+use Exception::Class (
+    'RequestError' => {
+        fields  => ['url'],
+    },
+);
 
 1;
