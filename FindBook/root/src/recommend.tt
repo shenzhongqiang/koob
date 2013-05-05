@@ -16,9 +16,37 @@
                 </div>
             </div>
         </div>
+        
+        <div class="container rec-main">
+            <div class="cat-sidebar">
+                <ul class="nav nav-list cat-sidenav">
+                    [% FOREACH i IN catalogs %]
+                    [% url = c.uri_for_action("/recommend/tag") _ "/" _ i %]
+                    [% IF i == catalog %]
+                    <li class="active"><a href="[% url %]"><i class="icon-chevron-right"></i>[% i %]</a></li>
+                    [% ELSE %]
+                    <li><a href="[% url %]"><i class="icon-chevron-right"></i>[% i %]</a></li>
+                    [% END %]
+                    [% END %]
+                </ul>
+            </div>
+            <div class="cat-main">
+                [% FOREACH i IN books %]
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object pic-resize" src="/static/pics/[% i.pic %]" alt="[% i.title %]">
+                    </a>
+                    <div class="media-body">
+                        <p class="media-heading">[% i.title %]</p>
+                        <p class="muted small">[% i.producer %]</p>
+                        <p class="small"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
+                        <p class="small">[% i.summary %]</p>
+                    </div>
+                </div>
+                [% END %]
+            </div>
+        </div>
     </div>
-    <ul class="nav nav-tabs nav-stacked">
-    </ul>
     [% INCLUDE src/footer.tt %]
 </body>
 </html>

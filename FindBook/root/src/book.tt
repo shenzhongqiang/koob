@@ -57,7 +57,7 @@
                     <input type="text" name="pic"/><br/>
                     <label class="control-label">description</label>
                     <textarea rows="20" class="book-desc" name="description"></textarea><br/>
-                    <label class="control-label">author_intro</label>
+                    <label class="control-label">author intro</label>
                     <textarea rows="20" class="book-desc" name="author_intro"></textarea><br/>
                     <button type="submit" class="btn">Add</button>
                 </fieldset>

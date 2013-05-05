@@ -289,6 +289,83 @@ button.btn-modal-close{
     width:102px;
     height:145px;
 }
+.cat-sidebar {
+    float:left;
+    margin-top:20px;
+    width:120px;
+}
+.cat-sidenav {
+    background-color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    box-shadow: 0 1px 4px rgba(0,0,0,.065); 
+    padding:0;
+}
+.cat-sidenav > li > a{
+    display: block;
+    margin: 0 0 -1px;
+    padding: 8px 14px;
+    border: 1px solid #e5e5e5;
+}
+.cat-sidenav > li:first-child > a{
+    -webkit-border-radius: 6px 6px 0 0;
+    -moz-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+.cat-sidenav > li:last-child > a{
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+}
+.cat-sidenav > .active > a {
+    padding: 9px 15px;
+    border: 0;
+}
+.cat-sidenav .icon-chevron-right {
+    float:right;
+    margin-top:2px;
+    margin-right:-6px;
+    opacity:0.2;
+}
+.cat-sidenav a:hover .icon-chevron-right {
+    opacity:0.5;
+}
+.cat-sidenav .active .icon-chevron-right,
+.cat-sidenav .active a:hover .icon-chevron-right{
+    background-image:url(/static/images/glyphicons-halflings-white.png);
+    opacity:1;
+}
+.rec-main{
+    margin-left:auto;
+    margin-right:auto;
+    width:80%;
+}
+.cat-main{
+    float:left;
+    width:60%;
+    margin-top:20px;
+    margin-left:80px;
+}
+.cat-main > div {
+    margin-top:0px;
+    margin-bottom:0px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E9E9E9;
+}
+.cat-main > div:first-child {
+    border-top: 1px solid #E9E9E9;
+}
+.small {
+    font-size:12px;
+}
+.pic-resize {
+    width:102px;
+    height:145px;
+}
 
 @media(min-width:768px) and (max-width:1024px){
 .content {
@@ -344,7 +421,12 @@ div.search-result{
 div.intro{
     width:80%
 }
-
+.book-add {
+    width:80%;
+}
+.all-books {
+    width:80%;
+}
 
 }
 
@@ -435,7 +517,19 @@ div.intro{
 button.btn-modal-close{
     font-size:10px
 }
-
+.book-add {
+    width:100%;
+}
+.all-books {
+    width:100%;
+}
+.img-book {
+    display: block;
+    float:none;
+    margin-bottom: 20px;
+    width:102px;
+    height:145px;
+}
 
 }
 

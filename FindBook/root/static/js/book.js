@@ -47,6 +47,7 @@ var book = {
                 $('input[name="publisher"]').val(book.publisher);
                 $('input[name="pubdate"]').val(book.pubdate);
                 $('input[name="pages"]').val(book.pages);
+                $('input[name="rating"]').val(book.rating);
                 
                 var img_url = book.img_url;
                 var ext = img_url.split(".").pop();

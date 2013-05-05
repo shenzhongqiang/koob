@@ -45,7 +45,7 @@ sub index :Path :Args(0) {
     my @book_rows = $c->model('FindBookDB::Book')->all;
     my @all_books;
     foreach my $row (@book_rows) {
-        my $book_hr = list_single_book($row);
+        my $book_hr = $c->forward('list_book', [$row]);
         push(@all_books, $book_hr);
     }
     $c->stash(
@@ -81,27 +81,18 @@ sub add :Local :Args(0) {
     my $author_intro = $c->req->params->{author_intro};
     
     my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
-    if(!defined $tag_row) {
-        my $msg = "Tag $catalog $subcat not found.";
-        $c->stash(
-            error   => $msg, 
-            template => "src/error.tt",
-        );
-        return;
-    }
-
     my $tag_id = $tag_row->id;
     $c->model('FindBookDB::Book')->create({
-        tag_id  => $tag_id,
-        isbn    => $isbn,
-        title   => $title,
-        rating  => $rating,
-        author  => $author,
+        tag_id      => $tag_id,
+        isbn        => $isbn,
+        title       => $title,
+        rating      => $rating,
+        author      => $author,
         translator  => $translator,
         publisher   => $publisher,
-        pubdate => $pubdate,
-        pages   => $pages,
-        pic     => $pic,
+        pubdate     => $pubdate,
+        pages       => $pages,
+        pic         => $pic,
         description => $desc,
         author_intro=> $author_intro,
     });
@@ -121,8 +112,9 @@ sub del :Local :Args(1) {
     $c->response->redirect($index_url);
 }
 
-sub list_single_book {
-    my $book_row = shift;
+sub list_book :Private {
+    my ( $self, $c ) = @_;
+    my $book_row = $c->req->args->[0];
     
     my $tag_row = $book_row->tag;
     return {
@@ -131,11 +123,48 @@ sub list_single_book {
         subcat  => $tag_row->subcat,
         isbn    => $book_row->isbn,
         title   => $book_row->title,
+        rating  => $book_row->rating,
         author  => $book_row->author,
-        pic     => $book_row->pic,
+        translator => $book_row->translator,
+        publisher  => $book_row->publisher,
+        pubdate    => $book_row->pubdate,
+        pages      => $book_row->pages,
+        pic        => $book_row->pic,
         description => $book_row->description,
+        author_intro=> $book_row->author_intro,
     };
 }
+
+sub list_book_summary :Private {
+    my ( $self, $c ) = @_;
+    my $book_row = $c->req->args->[0];
+    
+    my $summary = substr($book_row->description, 0, 300);
+    my @producer;
+    if(defined $book_row->author && $book_row->author) {
+        push(@producer, $book_row->author);
+    }
+    if(defined $book_row->translator && $book_row->translator) {
+        push(@producer, $book_row->translator);
+    }
+    if(defined $book_row->publisher && $book_row->publisher) {
+        push(@producer, $book_row->publisher);
+    }
+    if(defined $book_row->pubdate && $book_row->pubdate) {
+        push(@producer, $book_row->pubdate);
+    }
+
+    my $producer = join(" / ", @producer);
+    return {
+        id      => $book_row->id,
+        title   => $book_row->title,
+        producer => $producer,
+        rating  => $book_row->rating,
+        pic     => $book_row->pic,
+        summary => $summary,
+    };
+}
+
 =head1 AUTHOR
 
 Zhongqiang Shen,,,

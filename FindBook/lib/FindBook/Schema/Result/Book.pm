@@ -38,7 +38,7 @@ __PACKAGE__->add_columns(
   "rating",
   { data_type => "float", is_nullable => 1},
   "pubdate",
-  { data_type => "date", is_nullable => 1},
+  { data_type => "varchar", is_nullable => 1, size => 15},
   "translator",
   { data_type => "varchar", is_nullable => 1, size => 63},
   "publisher",
