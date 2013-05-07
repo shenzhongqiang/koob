@@ -2,6 +2,7 @@ package FindBook::Controller::Book;
 use Moose;
 use namespace::autoclean;
 use JSON;
+use Encode;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -96,8 +97,7 @@ sub add :Local :Args(0) {
         description => $desc,
         author_intro=> $author_intro,
     });
-    my $index_url = $c->uri_for_action('/book/index');
-    $c->response->redirect($index_url);
+    $c->forward('/book/index');
 }
 
 sub del :Local :Args(1) {
@@ -109,7 +109,7 @@ sub del :Local :Args(1) {
         id => $id,
     })->delete;
     my $index_url = $c->uri_for_action('/book/index');
-    $c->response->redirect($index_url);
+    $c->forward('/book/index');
 }
 
 sub list_book :Private {
@@ -139,7 +139,8 @@ sub list_book_summary :Private {
     my ( $self, $c ) = @_;
     my $book_row = $c->req->args->[0];
     
-    my $summary = substr($book_row->description, 0, 300);
+    my $str = decode("utf-8", $book_row->description);
+    my $summary = encode("utf-8", substr($str, 0, 122));
     my @producer;
     if(defined $book_row->author && $book_row->author) {
         push(@producer, $book_row->author);

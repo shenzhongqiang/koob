@@ -21,7 +21,7 @@ Catalyst Controller.
 
 =cut
 
-sub index :Path :Args(2) {
+sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     my $q = $c->req->params->{q};
     my $page_no = $c->req->params->{page_no};

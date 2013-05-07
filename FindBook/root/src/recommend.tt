@@ -20,8 +20,15 @@
         <div class="container rec-main">
             <div class="cat-sidebar">
                 <ul class="nav nav-list cat-sidenav">
+                    [% url = c.uri_for_action("/recommend/index") %]
+                    [% IF !catalog %]
+                    <li class="active"><a href="[% url %]"><i class="icon-chevron-right"></i>全部</a></li>
+                    [% ELSE %]
+                    <li><a href="[% url %]"><i class="icon-chevron-right"></i>全部</a></li>
+                    [% END %]
+
                     [% FOREACH i IN catalogs %]
-                    [% url = c.uri_for_action("/recommend/tag") _ "/" _ i %]
+                    [% url = c.uri_for_action("/recommend/catalog") _ "/" _ i %]
                     [% IF i == catalog %]
                     <li class="active"><a href="[% url %]"><i class="icon-chevron-right"></i>[% i %]</a></li>
                     [% ELSE %]
@@ -31,19 +38,65 @@
                 </ul>
             </div>
             <div class="cat-main">
-                [% FOREACH i IN books %]
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object pic-resize" src="/static/pics/[% i.pic %]" alt="[% i.title %]">
-                    </a>
-                    <div class="media-body">
-                        <p class="media-heading">[% i.title %]</p>
-                        <p class="muted small">[% i.producer %]</p>
-                        <p class="small"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
-                        <p class="small">[% i.summary %]</p>
+                [% IF catalog %]
+                <div class="cat-label">[% catalog %]</div>
+                [% ELSE %]
+                <div class="cat-label">全部</div>
+                [% END %]
+                <div class="subcat-topnav">
+                    [% lines = (subcats.size - 1) div 5 - 1 %]
+                    [% FOREACH i IN [0 .. lines ] %]
+                    <div class="subcat-line">
+                        [% start = i*5 
+                           end = i*5 + 4 
+                        %]
+                        [% FOREACH j IN [ start .. end ] %]
+                        [% url = c.uri_for_action("/recommend/subcat") _ "/" _ subcats.$j %]
+                        [% IF subcats.$j == subcat %]
+                        <span class="active"><a href="[% url %]">[% subcats.$j %]</a></span>
+                        [% ELSE %]
+                        <span><a href="[% url %]">[% subcats.$j %]</a></span>
+                        [% END %]
+                        [% END %]
+                    </div>
+                    [% END %]
+                    <div class="subcat-line">
+                        [% start = (lines + 1)*5 
+                           end = subcats.size - 1
+                        %]
+                        [% FOREACH j IN [ start .. end ] %]
+                        <span><a href="">[% subcats.$j %]</a></span>
+                        [% END %]
                     </div>
                 </div>
-                [% END %]
+                <div class="subcat-main">
+                    [% FOREACH i IN books %]
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object pic-resize" src="/static/pics/[% i.pic %]" alt="[% i.title %]">
+                        </a>
+                        <div class="media-body">
+                            <p class="media-heading">[% i.title %]</p>
+                            <p class="muted small">[% i.producer %]</p>
+                            <p class="small"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
+                            <p class="small">[% i.summary %]...</p>
+                        </div>
+                    </div>
+                    [% END %]
+                </div>
+                <div class="rec-page">
+                    <div class="pagination pagination-small pagination-centered">
+                        <ul>
+                            <li><a href="#">&laquo;</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

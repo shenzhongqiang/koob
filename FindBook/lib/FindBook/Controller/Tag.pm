@@ -52,8 +52,7 @@ sub add :Local :Args(0) {
         catalog => $catalog,
         subcat  => $subcat,
     });
-    my $index_url = $c->uri_for_action('/tag/index');
-    $c->response->redirect($index_url);
+    $c->forward('/tag/index');
 }
 
 sub del :Local :Args(1) {
@@ -64,8 +63,7 @@ sub del :Local :Args(1) {
     $c->model('FindBookDB::Tag')->find({
         id => $id,
     })->delete;
-    my $index_url = $c->uri_for_action('/tag/index');
-    $c->response->redirect($index_url);
+    $c->forward('/tag/index');
 }
 
 sub list_single_tag {

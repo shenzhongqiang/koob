@@ -38,17 +38,48 @@ sub index :Path :Args(0) {
     );
 }
 
-sub tag :Local :Args(1) {
+sub catalog :Local :Args(1) {
     my ( $self, $c ) = @_;
     my $catalog = $c->req->arguments->[0];
 
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
-    my $catalog_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog}, {order_by => {-desc => 'id'}});
-    my @book_rows = $catalog_row->books;
+    my @subcats = $c->model('FindBookDB::Tag')->search({catalog => $catalog}, {order_by => 'id'})->get_column('subcat')->all;
+    my @book_rows = $c->model('FindBookDB::Book')->search({'tag.catalog' => $catalog}, {join => 'tag'});
+    my @books;
+    foreach(@book_rows) {
+        my $book_hr = $c->forward('/book/list_book_summary', [$_]);
+        push(@books, $book_hr);
+    }
     $c->stash(
         template => "src/recommend.tt",
         catalogs => \@catalogs,
+        subcats  => \@subcats,
         catalog  => $catalog,
+        books    => \@books,
+    );
+}
+
+sub subcat :Local :Args(1) {
+    my ( $self, $c ) = @_;
+    my $subcat = $c->req->arguments->[0];
+
+    my $tag_row = $c->model('FindBookDB::Tag')->find({subcat => $subcat});
+    my $catalog = $tag_row->catalog;
+    my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
+    my @subcats = $c->model('FindBookDB::Tag')->search({catalog => $catalog}, {order_by => 'id'})->get_column('subcat')->all;
+    my @book_rows = $tag_row->books;
+    my @books;
+    foreach(@book_rows) {
+        my $book_hr = $c->forward('/book/list_book_summary', [$_]);
+        push(@books, $book_hr);
+    }
+    $c->stash(
+        template => "src/recommend.tt",
+        catalogs => \@catalogs,
+        subcats  => \@subcats,
+        catalog  => $catalog,
+        subcat   => $subcat,
+        books    => \@books,
     );
 }
 
