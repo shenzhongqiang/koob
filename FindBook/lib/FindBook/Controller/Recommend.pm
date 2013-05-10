@@ -1,6 +1,7 @@
 package FindBook::Controller::Recommend;
 use Moose;
 use namespace::autoclean;
+use List::Util qw[min max];
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -24,17 +25,31 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
+    my $page_no = $c->req->params->{page_no} || 1;
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
-    my @book_rows = $c->model('FindBookDB::Book')->search(undef, {order_by => {-desc => 'id'}});
+    my $book_count = $c->model('FindBookDB::Book')->count;
+    my $pages = int(($book_count - 1) / 1) + 1;
+    my $labels_ar = get_page_labels($pages, $page_no);
+    my @urls = map {$c->forward('make_link', ['/recommend/index', $_]) } @$labels_ar;
+    use Data::Dumper; print Dumper(\@urls);
+    my $prev_page_no = $page_no <= 1 ? 0 : $page_no - 1;
+    my $next_page_no = $page_no >= $pages ? 0 : $page_no + 1;
+    my $prev_page_url = $c->forward('make_link', ['/recommend/index', $prev_page_no]);
+    my $next_page_url = $c->forward('make_link', ['/recommend/index', $next_page_no]);
+    my @book_rows = $c->model('FindBookDB::Book')->search(undef, {order_by => {-desc => 'id'}, page => $page_no, rows => 10});
     my @books;
     foreach(@book_rows) {
         my $book_hr = $c->forward('/book/list_book_summary', [$_]);
         push(@books, $book_hr);
     }
     $c->stash(
-        template => "src/recommend.tt",
-        catalogs => \@catalogs,
-        books    => \@books,
+        template      => "src/recommend.tt",
+        catalogs      => \@catalogs,
+        books         => \@books,
+        page_no       => $page_no,
+        prev_page_url => $prev_page_url,
+        next_page_url => $next_page_url,
+        page_urls     => \@urls,
     );
 }
 
@@ -42,9 +57,12 @@ sub catalog :Local :Args(1) {
     my ( $self, $c ) = @_;
     my $catalog = $c->req->arguments->[0];
 
+    my $page_no = $c->req->params->{page_no} || 1;
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
     my @subcats = $c->model('FindBookDB::Tag')->search({catalog => $catalog}, {order_by => 'id'})->get_column('subcat')->all;
-    my @book_rows = $c->model('FindBookDB::Book')->search({'tag.catalog' => $catalog}, {join => 'tag'});
+    my $book_count = $c->model('FindBookDB::Book')->search({'tag.catalog' => $catalog})->count;
+    my $pages = int(($book_count - 1) / 10) + 1;
+    my @book_rows = $c->model('FindBookDB::Book')->search({'tag.catalog' => $catalog}, {join => 'tag', page => $page_no, rows => 10});
     my @books;
     foreach(@book_rows) {
         my $book_hr = $c->forward('/book/list_book_summary', [$_]);
@@ -56,6 +74,8 @@ sub catalog :Local :Args(1) {
         subcats  => \@subcats,
         catalog  => $catalog,
         books    => \@books,
+        pages    => $pages,
+        page_no  => $page_no,
     );
 }
 
@@ -82,6 +102,65 @@ sub subcat :Local :Args(1) {
         books    => \@books,
     );
 }
+
+sub make_link :Private {
+    my ( $self, $c ) = @_;
+    my $action = $c->req->args->[0];
+    my $label = $c->req->args->[1];
+    
+    my $url_hr;
+    if($label =~ /^\d+$/) {
+        $url_hr = {
+            url => $c->uri_for_action($action, {page_no => $label}),
+            label => $label
+        };
+    }
+    else {
+        $url_hr = {
+            url   => '',
+            label => $label,
+        };
+    }
+    return $url_hr;
+}
+
+sub get_page_labels {
+    my $pages = shift;
+    my $page_no = shift;
+    
+    my $link_count = 9;
+    my @labels;
+    my $start = max(1, $page_no - int($link_count / 2));
+    my $end = min($start + $link_count - 1, $pages);
+    $start = max(1, $end - $link_count + 1);
+    
+    if($start < 4) {
+        foreach(1 .. $start - 1) {
+            push(@labels, $_);
+        }
+    }
+    else {
+        push(@labels, 1);
+        push(@labels, "...");
+    }
+
+    foreach($start .. $end) {
+        push(@labels, $_);
+    }
+
+    if($pages < $end + 3) {
+        foreach($end + 1 .. $pages) {
+            push(@labels, $_);
+        }
+    }
+    else {
+        push(@labels, "...");
+        push(@labels, $pages);
+    }
+    return \@labels;
+}
+
+
 
 =head1 AUTHOR
 

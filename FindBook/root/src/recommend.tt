@@ -87,13 +87,25 @@
                 <div class="rec-page">
                     <div class="pagination pagination-small pagination-centered">
                         <ul>
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">&raquo;</a></li>
+                            [% IF prev_page_url.label %]
+                            <li><a href="[% prev_page_url.url %]">&laquo;</a></li>
+                            [% ELSE %]
+                            <li class="disabled"><span>&laquo;</span></li>
+                            [% END %]
+                            [% FOREACH i IN page_urls %]
+                            [% IF i.label == "..." %]
+                            <li class="disabled"><span>[% i.label %]</span></li>
+                            [% ELSIF i.label == page_no %]
+                            <li class="active"><a href="[% i.url %]">[% i.label %]</a></li>
+                            [% ELSE %]
+                            <li><a href="[% i.url %]">[% i.label %]</a></li>
+                            [% END %]
+                            [% END %]
+                            [% IF next_page_url.label %]
+                            <li><a href="[% next_page_url.url %]">&raquo;</a></li>
+                            [% ELSE %]
+                            <li class="disabled"><span>&raquo;</span></li>
+                            [% END %]
                         </ul>
                     </div>
                 </div>
