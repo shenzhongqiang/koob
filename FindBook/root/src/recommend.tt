@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="outer-wrapper">
-        <div class="navbar navbar-static-top">
+        <div class="navbar navbar-static-top navbar-inverse">
             <div class="navbar-inner">
                 <div class="container">
                     <ul class="nav">
@@ -65,7 +65,12 @@
                            end = subcats.size - 1
                         %]
                         [% FOREACH j IN [ start .. end ] %]
-                        <span><a href="">[% subcats.$j %]</a></span>
+                        [% url = c.uri_for_action("/recommend/subcat") _ "/" _ subcats.$j %]
+                        [% IF subcats.$j == subcat %]
+                        <span class="active"><a href="[% url %]">[% subcats.$j %]</a></span>
+                        [% ELSE %]
+                        <span><a href="[% url %]">[% subcats.$j %]</a></span>
+                        [% END %]
                         [% END %]
                     </div>
                 </div>
@@ -78,7 +83,7 @@
                         <div class="media-body">
                             <p class="media-heading">[% i.title %]</p>
                             <p class="muted small">[% i.producer %]</p>
-                            <p class="small"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
+                            <p class="small"><span class="rating[% i.rating %]"></span></p>
                             <p class="small">[% i.summary %]...</p>
                         </div>
                     </div>

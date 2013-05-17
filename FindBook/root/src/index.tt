@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="outer-wrapper">
-        <div class="navbar navbar-static-top">
+        <div class="navbar navbar-static-top navbar-inverse">
             <div class="navbar-inner">
                 <div class="container">
                     <ul class="nav">
@@ -18,14 +18,15 @@
         </div>
         <div class="content">
 <!--            <h1 class="text-center logo-bg-ct">iFindBook</h1> -->
-            <div class="logo-bg">
+            <div class="hero-unit">
+                <div class="logo-bg"></div>
+                <p class="text-center muted logo-desc" style="margin-top:10px;">最优秀的电子书搜索引擎</p>
             </div>
-            <p class="text-center muted logo-desc" style="margin-top:10px;">最优秀的电子书搜索引擎</p>
         </div>
         <div class="index-form-div">
             <form method="get" action="/search">
                 <div class="input-append ctrl-container">
-                    <input id="srch-q" class="ct-srch-tb" type="text" name="q" value="[% q %]"/>
+                    <input id="srch-q" class="ct-srch-tb" type="text" name="q" value="[% q %]" />
                     <input id="srch-start" type="hidden" name="page_no" value=1 />
                     <button type="submit" class="btn btn-primary srch-btn"><i class="icon-search icon-white"></i></button>
                 </div>

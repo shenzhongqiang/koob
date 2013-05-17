@@ -876,7 +876,7 @@
   .input-prepend input[class*="span"],
   .input-append input[class*="span"] {
     display: inline-block;
-    width: auto;
+    width: auto; 
   }
   .controls-row [class*="span"] + [class*="span"] {
     margin-left: 0;

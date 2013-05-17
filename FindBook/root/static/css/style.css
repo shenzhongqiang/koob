@@ -58,14 +58,20 @@ div.index-form-div{
 }
 
 .content {
-    margin-top: 100px;
+    margin-top: 60px;
+}
+
+.hero-unit {
+    margin-left:auto;
+    margin-right:auto;
+    width:38%;
 }
 
 .logo-bg {
-    background:url("/static/images/ifindbook_large.png") no-repeat top left;
-    background-size:347px 86px;
-    width: 347px;
-    height: 86px;
+    background:url("/static/images/logo.png") no-repeat top left;
+    background-size:382px 63px;
+    width: 382px;
+    height: 63px;
     margin-left:auto;
     margin-right:auto;
 }
@@ -401,6 +407,51 @@ button.btn-modal-close{
 .small {
     font-size:12px;
 }
+.rating50,.rating45,
+.rating40,.rating35,
+.rating30,.rating25,
+.rating20,.rating15,
+.rating10,.rating05,
+.rating00{
+    background:url("/static/images/rating.gif") no-repeat;
+    display:inline-block;
+    width:55px;
+    height:11px;
+    overflow:hidden;
+}
+.rating50{
+    background-position:0 0;
+}
+.rating45{
+    background-position:0 -11px;
+}
+.rating40{
+    background-position:0 -22px;
+}
+.rating35{
+    background-position:0 -33px;
+}
+.rating30{
+    background-position:0 -44px;
+}
+.rating25{
+    background-position:0 -55px;
+}
+.rating20{
+    background-position:0 -66px;
+}
+.rating15{
+    background-position:0 -77px;
+}
+.rating10{
+    background-position:0 -88px;
+}
+.rating05{
+    background-position:0 -99px;
+}
+.rating00{
+    background-position:0 -110px;
+}
 .pic-resize {
     width:102px;
     height:145px;
@@ -411,12 +462,15 @@ button.btn-modal-close{
 
 @media(min-width:768px) and (max-width:1024px){
 .content {
-    margin-top: px;
 }
+.hero-unit {
+    width:50%;
+}
+
 .logo-bg {
-    background-size:300px 73px;
-    width: 300px;
-    height: 73px;
+    background-size:382px 63px;
+    width: 382px;
+    height: 63px;
 }
 
 a.search-logo{
@@ -474,13 +528,18 @@ div.intro{
 
 @media(max-width:767px){
 .content {
-    margin-top:50px;
 }
 
+.hero-unit {
+    width:80%;
+    padding-left:20px;
+    padding-right:20px;
+}
 .logo-bg {
-    background-size:225 55px;
-    width: 225px;
-    height: 55px;
+    background:url("/static/images/logo-small.png") no-repeat top left;
+    background-size:230px 38px;
+    width: 230px;
+    height: 38px;
 }
 
 div.footer{
@@ -509,7 +568,7 @@ div.ctrl-container{
 }
 
 .ct-srch-tb{
-    width:85%
+    width:85%;
 }
 
 .srch-btn{

@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 use JSON;
 use Encode;
+use POSIX qw/floor/;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -58,10 +59,10 @@ sub index :Path :Args(0) {
 
 sub list :Local :Args(1) {
     my ( $self, $c ) = @_;
-    my $id = $c->req->arguments->[0];
+    my $isbn = $c->req->arguments->[0];
 
-    $c->stash(id => $id);
-    $c->stash(template => "src/book.tt");
+    $c->stash(isbn => $isbn);
+    $c->stash(template => "src/book_list.tt");
 }
 
 sub add :Local :Args(0) {
@@ -154,16 +155,28 @@ sub list_book_summary :Private {
     if(defined $book_row->pubdate && $book_row->pubdate) {
         push(@producer, $book_row->pubdate);
     }
-
+    
+    my $rating = $book_row->rating || 0;
+    $rating = rating_as_string($rating);
     my $producer = join(" / ", @producer);
     return {
         id      => $book_row->id,
         title   => $book_row->title,
         producer => $producer,
-        rating  => $book_row->rating,
+        rating  => $rating,
         pic     => $book_row->pic,
+        isbn    => $book_row->isbn,
         summary => $summary,
     };
+}
+
+sub rating_as_string {
+    my $float = shift;
+
+    $float = $float / 2;
+    my $norm = floor($float * 2) * 5;
+    my $str = sprintf("%02d", $norm);
+    return $str;
 }
 
 =head1 AUTHOR

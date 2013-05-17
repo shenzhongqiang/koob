@@ -28,7 +28,7 @@ sub index :Path :Args(0) {
 
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
     my $book_count = $c->model('FindBookDB::Book')->count;
-    my $pages = int(($book_count - 1) / 1) + 1;
+    my $pages = int(($book_count - 1) / 10) + 1;
     my $url = $c->uri_for_action("/recommend/index");
     
     my $labels_ar = get_page_labels($pages, $page_no);
