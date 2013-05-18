@@ -364,33 +364,34 @@ button.btn-modal-close{
     margin-top:20px;
 }
 
-.subcat-line {
+.subcat-content {
     clear:both;
     margin-top:10px;
     margin-left:0px;
     display:block;
 }
-.subcat-line > span {
+.subcat-content > span {
     width:72px;
-    margin-left:6px;
+    height:25px;
     display:inline-block;
 }
-.subcat-line > span:first-child {
+.subcat-content > span:first-child {
     margin-left:0px;
 }
-.subcat-line > span > a {
+.subcat-content > span > a {
     text-decoration: none;
 }
-.subcat-line .active a,
-.subcat-line .active a:hover {
+.subcat-content .active a,
+.subcat-content .active a:hover {
     background-color:#37A;
     color:white;
 }
-.subcat-line a:hover {
+.subcat-content a:hover {
     background-color:#EEE;
 }
 
 .subcat-main {
+    clear:both;
     margin-top: 20px;
     border-top: 1px solid #E9E9E9;
 }

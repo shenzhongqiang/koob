@@ -44,34 +44,15 @@
                 <div class="cat-label">全部</div>
                 [% END %]
                 <div class="subcat-topnav">
-                    [% lines = (subcats.size - 1) div 5 - 1 %]
-                    [% FOREACH i IN [0 .. lines ] %]
-                    <div class="subcat-line">
-                        [% start = i*5 
-                           end = i*5 + 4 
-                        %]
-                        [% FOREACH j IN [ start .. end ] %]
-                        [% url = c.uri_for_action("/recommend/subcat") _ "/" _ subcats.$j %]
-                        [% IF subcats.$j == subcat %]
-                        <span class="active"><a href="[% url %]">[% subcats.$j %]</a></span>
+                    <div class="subcat-content">
+                    [% FOREACH i IN subcats %]
+                        [% url = c.uri_for_action("/recommend/subcat") _ "/" _ i %]
+                        [% IF i == subcat %]
+                        <span class="active"><a href="[% url %]">[% i %]</a></span>
                         [% ELSE %]
-                        <span><a href="[% url %]">[% subcats.$j %]</a></span>
+                        <span><a href="[% url %]">[% i %]</a></span>
                         [% END %]
-                        [% END %]
-                    </div>
                     [% END %]
-                    <div class="subcat-line">
-                        [% start = (lines + 1)*5 
-                           end = subcats.size - 1
-                        %]
-                        [% FOREACH j IN [ start .. end ] %]
-                        [% url = c.uri_for_action("/recommend/subcat") _ "/" _ subcats.$j %]
-                        [% IF subcats.$j == subcat %]
-                        <span class="active"><a href="[% url %]">[% subcats.$j %]</a></span>
-                        [% ELSE %]
-                        <span><a href="[% url %]">[% subcats.$j %]</a></span>
-                        [% END %]
-                        [% END %]
                     </div>
                 </div>
                 <div class="subcat-main">
