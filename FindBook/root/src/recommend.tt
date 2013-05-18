@@ -77,11 +77,12 @@
                 <div class="subcat-main">
                     [% FOREACH i IN books %]
                     <div class="media">
-                        <a class="pull-left" href="#">
+                        [% book_url = c.uri_for_action("/book/list") _ "/" _ i.isbn %]
+                        <a class="pull-left" href="[% book_url %]">
                             <img class="media-object pic-resize" src="/static/pics/[% i.pic %]" alt="[% i.title %]">
                         </a>
                         <div class="media-body">
-                            <p class="media-heading">[% i.title %]</p>
+                            <p class="media-heading"><a href=[% book_url %]>[% i.title %]</a></p>
                             <p class="muted small">[% i.producer %]</p>
                             <p class="small"><span class="rating[% i.rating %]"></span></p>
                             <p class="small">[% i.summary %]...</p>

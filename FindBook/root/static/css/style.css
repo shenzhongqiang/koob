@@ -404,6 +404,13 @@ button.btn-modal-close{
 .subcat-main > div:first-child {
     border:none;
 }
+.media-heading a{
+    color:#333;
+}
+.media-heading a:hover{
+    color:#BBB;
+    text-decoration:none;
+}
 .small {
     font-size:12px;
 }
