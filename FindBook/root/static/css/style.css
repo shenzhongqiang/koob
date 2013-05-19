@@ -305,21 +305,12 @@ button.btn-modal-close{
     padding-left:0;
     padding-right:0;
 }
-.book-subject{
+.book-title{
+    margin-top:0;
 }
-.clearfix:after{
-    visibility:hidden;
-    display:block;
-    font-size:0;
-    clear:both;
-    height:0;
-}
-.book-subject img{
-    float:left;
-}
-.book-info{
-    margin-left:20px;
-    float:left;
+.book-img{
+    height:145px;
+    width:102px;
 }
 .pipe{
     color:#999;
@@ -327,8 +318,17 @@ button.btn-modal-close{
     margin-right:10px;
     font-size:12px;
 }
+.book-search{
+    margin-top:20px;
+}
+.book-search-label{
+    float:left;
+}
+.book-search-buttons{
+    float:left;
+    margin-left:10px;
+}
 .book-desc{
-    clear:both;
     margin-top:20px;
     border-top:1px solid #e5e5e5;
     padding-top:20px;

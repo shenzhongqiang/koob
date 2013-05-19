@@ -25,34 +25,49 @@
         
         <div class="container">
             <div class="book-main">
-<!--                <div class="book-breadcrumb"> -->
-                    <ul class="breadcrumb book-breadcrumb">
-                        <li><a href="[% c.uri_for_action('/recommend/index') %]">书单首页</a><span class="divider"> &gt;</span></li>  
-                        <li><a href="[% c.uri_for_action('/recommend/catalog') %]/[% book.catalog %]">[% book.catalog %]</a><span class="divider"> &gt;</span></li>  
-                        <li><a href="[% c.uri_for_action('/recommend/subcat') %]/[% book.subcat %]">[% book.subcat %]</a><span class="divider"> &gt;</span></li>  
-                        <li class="active">[% book.title %]</li>  
-                    </ul>
+                <ul class="breadcrumb book-breadcrumb">
+                    <li><a href="[% c.uri_for_action('/recommend/index') %]">书单首页</a><span class="divider"> &gt;</span></li>  
+                    <li><a href="[% c.uri_for_action('/recommend/catalog') %]/[% book.catalog %]">[% book.catalog %]</a><span class="divider"> &gt;</span></li>  
+                    <li><a href="[% c.uri_for_action('/recommend/subcat') %]/[% book.subcat %]">[% book.subcat %]</a><span class="divider"> &gt;</span></li>  
+                    <li class="active">[% book.title %]</li>  
+                </ul>
                     
-<!--                </div> -->
-                <div class="book-subject clearfix">
-                    <img class="pic-resize" src="/static/pics/[% book.pic %]">
-                    <div class="book-info">
-                        <span class="lead">[% book.title %]</span><br>
-                        <span class="rating[% book.rating %]"></span><br>
-                        <span class="small">作者: [% book.author %]</span>
-                        [% IF book.translator %]
-                        <span class="pipe">|</span>
-                        <span class="small">译者: [% book.translator %]</span><br>
-                        [% END %]
-                        [% IF book.publisher %]
-                        <span class="small">出版社: [% book.publisher %]</span>
-                        [% END %]
-                        [% IF book.pubdate %]
-                        <span class="pipe">|</span>
-                        <span class="small">出版时间: [% book.pubdate %]</span><br>
-                        [% END %]
+    
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object book-img" src="/static/pics/[% book.pic %]">
+                    </a>
+                    <div>
+                        <h4 class="book-title">[% book.title %]</h4>
+                        <div class="media">
+                            <span class="rating[% book.rating %]"></span><br>
+                            <span class="small">作者: [% book.author %]</span><br>
+                            [% IF book.translator %]
+                            <span class="small">译者: [% book.translator %]</span><br>
+                            [% END %]
+                            [% IF book.publisher %]
+                            <span class="small">出版社: [% book.publisher %]</span><br>
+                            [% END %]
+                            [% IF book.pubdate %]
+                            <span class="small">出版时间: [% book.pubdate %]</span><br>
+                            [% END %]
+                        </div>
                     </div>
                 </div>
+                
+                <div class="book-search clearfix">
+                    <div class="book-search-label">
+                        <span class="btn btn-small disabled">搜一搜</span>
+                    </div>
+                    <div class="book-search-buttons">
+                        <a href="" class="btn btn-success btn-small">所有格式</a>
+                        <a href="" class="btn btn-success btn-small">PDF</a>
+                        <a href="" class="btn btn-success btn-small">EPUB</a>
+                        <a href="" class="btn btn-success btn-small">MOBI</a>
+                        <a href="" class="btn btn-success btn-small">TXT</a>
+                    </div>
+                </div>
+
                 <div class="book-desc">
                     [% IF book.description %]
                     <p class="text-warning">内容简介</p>
