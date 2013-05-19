@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>好书推荐 - iFindBook</title>
+    <title>书单 - iFindBook</title>
     [% INCLUDE src/html_head.tt %]
 </head>
 <body>

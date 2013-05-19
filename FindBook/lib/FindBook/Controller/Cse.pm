@@ -40,10 +40,6 @@ sub get_search_result :Private {
     my $page_no = $c->req->args->[1],
     my $num = $c->req->args->[2];
     
-    if(!defined $page_no) {
-        $page_no = 1;
-    }
-
     my $url = build_url($q, $page_no, $num);
     my $resp;
     try {
