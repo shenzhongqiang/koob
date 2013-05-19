@@ -16,14 +16,59 @@
             <div class="navbar-inner">
                 <div class="container">
                     <ul class="nav">
-                        <li><a href="/">首页</a><li>
-                        <li class="active"><a href="/recommend">好书推荐</a><li>
+                        <li><a href="/">搜索</a><li>
+                        <li class="active"><a href="/recommend">书单</a><li>
                     </ul>
                 </div>
             </div>
         </div>
         
-        <div class="container book-add">
+        <div class="container">
+            <div class="book-main">
+<!--                <div class="book-breadcrumb"> -->
+                    <ul class="breadcrumb book-breadcrumb">
+                        <li><a href="[% c.uri_for_action('/recommend/index') %]">书单首页</a><span class="divider"> &gt;</span></li>  
+                        <li><a href="[% c.uri_for_action('/recommend/catalog') %]/[% book.catalog %]">[% book.catalog %]</a><span class="divider"> &gt;</span></li>  
+                        <li><a href="[% c.uri_for_action('/recommend/subcat') %]/[% book.subcat %]">[% book.subcat %]</a><span class="divider"> &gt;</span></li>  
+                        <li class="active">[% book.title %]</li>  
+                    </ul>
+                    
+<!--                </div> -->
+                <div class="book-subject clearfix">
+                    <img class="pic-resize" src="/static/pics/[% book.pic %]">
+                    <div class="book-info">
+                        <span class="lead">[% book.title %]</span><br>
+                        <span class="rating[% book.rating %]"></span><br>
+                        <span class="small">作者: [% book.author %]</span>
+                        [% IF book.translator %]
+                        <span class="pipe">|</span>
+                        <span class="small">译者: [% book.translator %]</span><br>
+                        [% END %]
+                        [% IF book.publisher %]
+                        <span class="small">出版社: [% book.publisher %]</span>
+                        [% END %]
+                        [% IF book.pubdate %]
+                        <span class="pipe">|</span>
+                        <span class="small">出版时间: [% book.pubdate %]</span><br>
+                        [% END %]
+                    </div>
+                </div>
+                <div class="book-desc">
+                    [% IF book.description %]
+                    <p class="text-warning">内容简介</p>
+                    [% FOREACH i IN book.description %]
+                    <p class="small">[% i %]</p>
+                    [% END %]
+                    [% END %]
+                    [% IF book.author_intro %]
+                    <br>
+                    <p class="text-warning">关于作者</p>
+                    [% FOREACH i IN book.author_intro %]
+                    <p class="small">[% i %]</p>
+                    [% END %]
+                    [% END %]
+                </div>
+            </div>
         </div>
     </div>
 

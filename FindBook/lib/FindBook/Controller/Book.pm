@@ -47,7 +47,7 @@ sub index :Path :Args(0) {
     my @book_rows = $c->model('FindBookDB::Book')->all;
     my @all_books;
     foreach my $row (@book_rows) {
-        my $book_hr = $c->forward('list_book', [$row]);
+        my $book_hr = $c->forward('list_book_summary', [$row]);
         push(@all_books, $book_hr);
     }
     $c->stash(
@@ -60,8 +60,10 @@ sub index :Path :Args(0) {
 sub list :Local :Args(1) {
     my ( $self, $c ) = @_;
     my $isbn = $c->req->arguments->[0];
-
-    $c->stash(isbn => $isbn);
+    
+    my $book_row = $c->model('FindBookDB::Book')->find({isbn => $isbn});
+    my $book_hr = $c->forward('list_book', [$book_row]);
+    $c->stash(book => $book_hr);
     $c->stash(template => "src/book_list.tt");
 }
 
@@ -118,21 +120,25 @@ sub list_book :Private {
     my $book_row = $c->req->args->[0];
     
     my $tag_row = $book_row->tag;
+    my $rating = $book_row->rating || 0;
+    $rating = rating_as_string($rating);
+    my @desc_para = split /\n/, $book_row->description;
+    my @auth_para = split /\n/, $book_row->author_intro;
     return {
         id      => $book_row->id,
         catalog => $tag_row->catalog,
         subcat  => $tag_row->subcat,
         isbn    => $book_row->isbn,
         title   => $book_row->title,
-        rating  => $book_row->rating,
+        rating  => $rating,
         author  => $book_row->author,
         translator => $book_row->translator,
         publisher  => $book_row->publisher,
         pubdate    => $book_row->pubdate,
         pages      => $book_row->pages,
         pic        => $book_row->pic,
-        description => $book_row->description,
-        author_intro=> $book_row->author_intro,
+        description => \@desc_para,
+        author_intro=> \@auth_para,
     };
 }
 
@@ -159,8 +165,11 @@ sub list_book_summary :Private {
     my $rating = $book_row->rating || 0;
     $rating = rating_as_string($rating);
     my $producer = join(" / ", @producer);
+    my $tag_row = $book_row->tag;
     return {
         id      => $book_row->id,
+        catalog => $tag_row->catalog,
+        subcat  => $tag_row->subcat,
         title   => $book_row->title,
         producer => $producer,
         rating  => $rating,

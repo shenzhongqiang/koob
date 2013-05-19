@@ -295,6 +295,44 @@ button.btn-modal-close{
     width:102px;
     height:145px;
 }
+.book-main{
+    margin-top:20px;
+    margin-bottom:100px;
+    width:60%;
+}
+.book-breadcrumb{
+    background-color:transparent;
+    padding-left:0;
+    padding-right:0;
+}
+.book-subject{
+}
+.clearfix:after{
+    visibility:hidden;
+    display:block;
+    font-size:0;
+    clear:both;
+    height:0;
+}
+.book-subject img{
+    float:left;
+}
+.book-info{
+    margin-left:20px;
+    float:left;
+}
+.pipe{
+    color:#999;
+    margin-left:10px;
+    margin-right:10px;
+    font-size:12px;
+}
+.book-desc{
+    clear:both;
+    margin-top:20px;
+    border-top:1px solid #e5e5e5;
+    padding-top:20px;
+}
 .cat-sidebar {
     float:left;
     margin-top:20px;
@@ -409,7 +447,7 @@ button.btn-modal-close{
     color:#333;
 }
 .media-heading a:hover{
-    color:#BBB;
+    color:#00AAFF;
     text-decoration:none;
 }
 .small {

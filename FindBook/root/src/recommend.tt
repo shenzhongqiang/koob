@@ -10,8 +10,8 @@
             <div class="navbar-inner">
                 <div class="container">
                     <ul class="nav">
-                        <li><a href="/">首页</a><li>
-                        <li class="active"><a href="/recommend">好书推荐</a><li>
+                        <li><a href="/">搜索</a><li>
+                        <li class="active"><a href="/recommend">书单</a><li>
                     </ul>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         <div class="media-body">
                             <p class="media-heading"><a href=[% book_url %]>[% i.title %]</a></p>
                             <p class="muted small">[% i.producer %]</p>
-                            <p class="small"><span class="rating[% i.rating %]"></span></p>
+                            <p><span class="rating[% i.rating %]"></span></p>
                             <p class="small">[% i.summary %]...</p>
                         </div>
                     </div>
