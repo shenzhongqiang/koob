@@ -141,11 +141,14 @@ div.logo-container{
     padding-top:3px;
     width:50%
 }
-
+.search-container{
+    margin-bottom:100px;
+}
+.search-main{
+    width:55%;
+}
 .top-form-container{
-    margin-top:35px;
-    margin-left:70px;
-    width:55%
+    margin-top:20px;
 }
 
 .top-form-container .top-form{
@@ -163,9 +166,7 @@ div.logo-container{
 }
 
 div.search-result{
-    margin-left:70px;
-    margin-bottom:100px;
-    width:55%
+    width:100%
 }
 
 div.search-item{
@@ -542,9 +543,11 @@ a.search-logo{
     width:8%
 }
 
-div.top-form-container{
-    margin-left:35px;
-    width:80%
+.search-main{
+    width:80%;
+}
+.top-form-container{
+    width:100%;
 }
 
 .top-form .top-tb{
@@ -553,11 +556,6 @@ div.top-form-container{
 
 .top-form .top-btn{
     width:8%
-}
-
-div.search-result{
-    margin-left:35px;
-    width:80%
 }
 
 div.intro{
@@ -637,11 +635,11 @@ div.logo-container{
     width:90%
 }
 
-div.top-form-container{
-    float:none;
-    margin-left:auto;
-    margin-right:auto;
-    width:90%
+.search-main{
+    width:100%;
+}
+.top-form-container{
+    width:100%;
 }
 
 .top-form .top-tb{
@@ -650,12 +648,6 @@ div.top-form-container{
 
 .top-form .top-btn{
     width:12%
-}
-
-div.search-result{
-    margin-left:auto;
-    margin-right:auto;
-    width:90%
 }
 
 .hero-unit h1{

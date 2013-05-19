@@ -69,13 +69,13 @@
                 </div>
 
                 <div class="book-desc">
-                    [% IF book.description %]
+                    [% IF book.description.size != 0 %]
                     <p class="text-warning">内容简介</p>
                     [% FOREACH i IN book.description %]
                     <p class="small">[% i %]</p>
                     [% END %]
                     [% END %]
-                    [% IF book.author_intro %]
+                    [% IF book.author_intro.size != 0 %]
                     <br>
                     <p class="text-warning">关于作者</p>
                     [% FOREACH i IN book.author_intro %]
