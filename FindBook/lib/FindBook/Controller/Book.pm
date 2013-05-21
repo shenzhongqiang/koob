@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 use JSON;
 use Encode;
+use Exception;
 use POSIX qw/floor/;
 
 BEGIN {extends 'Catalyst::Controller'; }
@@ -86,6 +87,10 @@ sub add :Local :Args(0) {
     
     my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
     my $tag_id = $tag_row->id;
+    my $book_row = $c->model('FindBookDB::Book')->find({isbn => $isbn});
+    if(defined $book_row) {
+        BookAlreadyExists->throw(isbn => $isbn);
+    }
     $c->model('FindBookDB::Book')->create({
         tag_id      => $tag_id,
         isbn        => $isbn,
@@ -100,7 +105,7 @@ sub add :Local :Args(0) {
         description => $desc,
         author_intro=> $author_intro,
     });
-    $c->forward('/book/index');
+    $c->res->redirect('/book');
 }
 
 sub del :Local :Args(1) {
@@ -112,7 +117,7 @@ sub del :Local :Args(1) {
         id => $id,
     })->delete;
     my $index_url = $c->uri_for_action('/book/index');
-    $c->forward('/book/index');
+    $c->res->redirect('/book');
 }
 
 sub list_book :Private {

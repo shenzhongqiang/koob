@@ -57,6 +57,9 @@ div.index-form-div{
     width:62%
 }
 
+.index-main {
+    margin-top:60px;
+}
 .content {
     margin-top: 60px;
 }
@@ -584,9 +587,9 @@ div.intro{
 }
 
 .hero-unit {
-    width:80%;
-    padding-left:20px;
-    padding-right:20px;
+    width:90%;
+    padding-left:15px;
+    padding-right:15px;
 }
 .logo-bg {
     background:url("/static/images/logo-small.png") no-repeat top left;
@@ -613,7 +616,7 @@ div.links>.first{
 }
 
 div.index-form-div{
-    width:90%
+    width:100%
 }
 
 div.ctrl-container{

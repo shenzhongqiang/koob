@@ -1,7 +1,13 @@
 package Exception;
 use Exception::Class (
     'RequestError' => {
-        fields  => ['url'],
+        fields => ['url'],
+    },
+    'BookAlreadyExists' => {
+        fields => ['isbn'],
+    },
+    'TagAlreadyExists' => {
+        fields => ['catalog', 'subcat'],
     },
 );
 

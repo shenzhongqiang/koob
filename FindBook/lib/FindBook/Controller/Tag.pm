@@ -47,7 +47,11 @@ sub add :Local :Args(0) {
     
     my $catalog = $c->req->params->{catalog};
     my $subcat = $c->req->params->{subcat};
-
+    
+    my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
+    if(defined $tag_row) {
+        TagAlreadyExists->throw(catalog => $catalog, subcat => $subcat);
+    }
     $c->model('FindBookDB::Tag')->create({
         catalog => $catalog,
         subcat  => $subcat,

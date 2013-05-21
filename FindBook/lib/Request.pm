@@ -6,7 +6,7 @@ sub send_request {
     my $url = shift;
 
     my $ua = LWP::UserAgent->new;
-    $ua->agent("Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.79 Safari/535.11");
+    $ua->agent("Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31");
     $ua->timeout(10);
     $ua->env_proxy;
     
@@ -25,7 +25,7 @@ sub download_file {
     my $local_path = shift;
 
     my $ua = LWP::UserAgent->new;
-    $ua->agent("Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.79 Safari/535.11");
+    $ua->agent("Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31");
     $ua->timeout(10);
     $ua->env_proxy;
     
