@@ -214,7 +214,7 @@ div.ra-tab-content {
 }
 
 div#thx-modal{
-    left:50%;
+    left:25%;
     margin-left:-110px;
     width:220px;
     height:80px;
@@ -550,6 +550,9 @@ a.search-logo{
 .aboutus-main{
     width:80%
 }
+div#thx-modal{
+    left:50%;
+}
 .book-add {
     width:80%;
 }
@@ -649,6 +652,9 @@ a.search-logo{
 
 .aboutus-main{
     width:100%
+}
+div#thx-modal{
+    left:50%;
 }
 
 button.btn-modal-close{
