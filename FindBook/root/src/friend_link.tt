@@ -6,11 +6,26 @@
 </head>
 <body>
     <div class="outer-wrapper">
-        [% INCLUDE src/search_logo_link.tt %]
-        <div class="intro">
-            <h4 class="intro-head">友情链接</h4>
-            <div class="intro-content">
-                <p></p>
+        <div class="navbar navbar-static-top navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="[% c.uri_for_action('/index') %]">iFindBook</a>
+                    <ul class="nav">
+                        <li><a href="/">搜索</a><li>
+                        <li><a href="/recommend">书单</a><li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="aboutus-main">
+                <div class="page-header">
+                    <p class="lead">友情链接</p>
+                </div>
+                <div class="intro-content">
+                    <p></p>
+                </div>
             </div>
         </div>
     </div>

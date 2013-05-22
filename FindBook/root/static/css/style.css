@@ -198,28 +198,17 @@ div.ra-tab-content {
     width: 250px;
 }
 
-div.intro{
-    margin-left:auto;
-    margin-right:auto;
+.aboutus-main{
+    margin-top:60px;
+    margin-bottom:100px;
     width:50%
-}
-
-div.intro .intro-head{
-    color:#333;
-    margin-bottom:30px
-}
-
-div.intro .intro-content{
-    margin-bottom:80px
 }
 
 .othsg{
     width:100%
 }
 
-button.btn-fdbk-submit{
-    margin-left:auto;
-    margin-right:auto;
+.btn-fdbk-submit{
     display:block;
     width:94px
 }
@@ -561,7 +550,7 @@ a.search-logo{
     width:8%
 }
 
-div.intro{
+.aboutus-main{
     width:80%
 }
 .book-add {
@@ -661,8 +650,8 @@ a.search-logo{
     display:none
 }
 
-div.intro{
-    width:90%
+.aboutus-main{
+    width:100%
 }
 
 button.btn-modal-close{

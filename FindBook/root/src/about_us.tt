@@ -6,12 +6,31 @@
 </head>
 <body>
     <div class="outer-wrapper">
-        [% INCLUDE src/search_logo_link.tt %]
-        <div class="intro">
-            <h4 class="intro-head">关于我们</h4>
-            <div class="intro-content">
-                <p>iFindBook 力争做最优秀的电子书搜索引擎。</p>
-                <p>使用iFindBook，您可以搜索pdf, epub, chm, txt, mobi等各类电子书、电子文档。我们为用户提供最快最准确的搜索结果，尽最大努力满足不同用户的需求，最大程度地提升用户体验。</p>
+        <div class="navbar navbar-static-top navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="[% c.uri_for_action('/index') %]">iFindBook</a>
+                    <ul class="nav">
+                        <li><a href="/">搜索</a><li>
+                        <li><a href="/recommend">书单</a><li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="aboutus-main">
+                <div class="page-header">
+                    <p class="lead">关于我们</p>
+                </div>
+                <!--
+                <p>iFindBook是一个搜索并发现电子书的平台。iFindBook提供了非常便捷的搜索功能，用户可以很方便地搜索到包括pdf, epub, txt, mobi等在内的各类电子书。我们将用户的热门搜索书籍整理成书单，用户可以很容易地发现并搜索喜欢的电子书。</p>
+                <p>iFindBook的愿景是为用户提供最好的产品体验，做互联网最优秀的电子书搜索引擎。</p>
+                -->
+                <div class="intro-content">
+                    <p>iFindBook 力争做互联网最优秀的电子书搜索引擎。</p>
+                    <p>使用iFindBook，您可以搜索pdf, epub, txt, mobi等各类电子书、电子文档。我们为用户提供最快最准确的搜索结果，尽最大努力满足不同用户的需求，最大程度地提升用户体
+                </div>
             </div>
         </div>
     </div>

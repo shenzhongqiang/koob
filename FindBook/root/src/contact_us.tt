@@ -6,12 +6,27 @@
 </head>
 <body>
     <div class="outer-wrapper">
-        [% INCLUDE src/search_logo_link.tt %]
-        <div class="intro">
-            <h4 class="intro-head">联系我们</h4>
-            <div class="intro-content">
-                <p>Email: ifindbook@sina.cn</p>
-                <p>QQ: 283254659</p>
+        <div class="navbar navbar-static-top navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="[% c.uri_for_action('/index') %]">iFindBook</a>
+                    <ul class="nav">
+                        <li><a href="/">搜索</a><li>
+                        <li><a href="/recommend">书单</a><li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="aboutus-main">
+                <div class="page-header">
+                    <p class="lead">联系我们</p>
+                </div>
+                <div class="intro-content">
+                    <p>Email: ifindbook@sina.cn</p>
+                    <p>QQ: 283254659</p>
+                </div>
             </div>
         </div>
     </div>
