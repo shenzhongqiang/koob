@@ -17,41 +17,43 @@
             </div>
         </div>
         
-        <div class="container tag-add">
-            <legend>添加标签</legend>
-            <form action="[% c.uri_for_action('/tag/add') %]" method="post">
-                <fieldset>
-                    <label class="control-label">catalog</label>
-                    <input type="text" name="catalog"/>
-                    <label class="control-label">sub catalog</label>
-                    <input type="text" name="subcat"/><br/>
-                    <button type="submit" class="btn">Add</button>
-                </fieldset>
-            </form>
-        </div>
+        <div class="container">
+            <div class="tag-add">
+                <legend>添加标签</legend>
+                <form action="[% c.uri_for_action('/tag/add') %]" method="post">
+                    <fieldset>
+                        <label class="control-label">catalog</label>
+                        <input type="text" name="catalog"/>
+                        <label class="control-label">sub catalog</label>
+                        <input type="text" name="subcat"/><br/>
+                        <button type="submit" class="btn">Add</button>
+                    </fieldset>
+                </form>
+            </div>
 
-        <div class="container all-tags">
-            <legend>所有标签</legend>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>catalog</th>
-                        <th>subcat</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    [% FOREACH i IN all_tags %]
-                    <tr>
-                        <td>[% i.id %]</td>
-                        <td>[% i.catalog %]</td>
-                        <td>[% i.subcat %]</td>
-                        <td class="remove"><a href="[% c.uri_for_action('/tag/del') %]/[% i.id %]"><i class="icon-remove"></i></a></td>
-                    </tr>
-                    [% END %]
-                </tbody>
-            </table>
+            <div class="all-tags">
+                <legend>所有标签</legend>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>catalog</th>
+                            <th>subcat</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        [% FOREACH i IN all_tags %]
+                        <tr>
+                            <td>[% i.id %]</td>
+                            <td>[% i.catalog %]</td>
+                            <td>[% i.subcat %]</td>
+                            <td class="remove"><a href="[% c.uri_for_action('/tag/del') %]/[% i.id %]"><i class="icon-remove"></i></a></td>
+                        </tr>
+                        [% END %]
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     
