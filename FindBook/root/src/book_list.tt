@@ -35,7 +35,7 @@
     
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object book-img" src="/static/pics/[% book.pic %]">
+                        <img class="media-object pic-resize" src="/static/pics/[% book.pic %]">
                     </a>
                     <div>
                         <h4 class="book-title">[% book.title %]</h4>

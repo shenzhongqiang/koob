@@ -301,10 +301,6 @@ button.btn-modal-close{
 .book-title{
     margin-top:0;
 }
-.book-img{
-    height:145px;
-    width:102px;
-}
 .pipe{
     color:#999;
     margin-left:10px;
@@ -492,6 +488,7 @@ button.btn-modal-close{
     background-position:0 -110px;
 }
 .pic-resize {
+    max-width:102px;
     width:102px;
     height:145px;
 }
