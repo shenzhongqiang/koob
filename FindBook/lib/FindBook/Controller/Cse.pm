@@ -3,9 +3,10 @@ use strict;
 use warnings;
 use Moose;
 use LWP::UserAgent;
-use Exception;
+use Try::Tiny;
 use JSON;
 use namespace::autoclean;
+use Request;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -39,17 +40,16 @@ sub get_search_result :Private {
     my $page_no = $c->req->args->[1],
     my $num = $c->req->args->[2];
     
-    if(!defined $page_no) {
-        $page_no = 1;
-    }
     my $url = build_url($q, $page_no, $num);
-    my $resp = $c->forward('send_request', [$url]);
-    if(scalar @{$c->error}) {
-        $url = build_url($q, 10, $num);
-        $resp = $c->forward('send_request', [$url]);
-        $c->clear_errors;
+    my $resp;
+    try {
+        $resp = Request::send_request($url);
     }
-#
+    catch {
+        $url = build_url($q, 10, $num);
+        $resp = Request::send_request($url);
+    };
+
     my $result_hr = $c->forward('parse_result', [$resp, $q, $page_no]);
     return $result_hr;
 }
@@ -98,27 +98,6 @@ sub parse_result :Private {
         results => \@result_items,
         pages   => \@page_items,
     };
-}
-
-
-sub send_request :Private {
-    my ( $self, $c ) = @_;
-    my $url = $c->req->args->[0];
-
-    my $ua = LWP::UserAgent->new;
-    $ua->agent("Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.79 Safari/535.11");
-    $ua->timeout(10);
-    $ua->env_proxy;
-    
-    for(my $i = 0; $i < 5; $i++) {
-        my $resp = $ua->get($url);
-        if($resp->is_success) {
-            return $resp->decoded_content;
-        }
-    }
-
-#    Exception::error_send_request($url);
-    $c->error("error sending request to below url:\n$url\n");
 }
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>友情链接 - iFindBook</title>
+    <title>书 - iFindBook</title>
     [% INCLUDE src/html_head.tt %]
 </head>
 <body>
@@ -9,7 +9,6 @@
         <div class="navbar navbar-static-top navbar-inverse">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="[% c.uri_for_action('/index') %]">iFindBook</a>
                     <ul class="nav">
                         <li><a href="/">搜索</a><li>
                         <li><a href="/recommend">书单</a><li>
@@ -17,21 +16,14 @@
                 </div>
             </div>
         </div>
-
-        <div class="container">
-            <div class="aboutus-main">
-                <div class="page-header">
-                    <p class="lead">友情链接</p>
-                </div>
-                <div class="intro-content">
-                    <p></p>
-                </div>
+        
+        <div class="container error">
+            <div class="alert">
+                <strong>Error!</strong> [% error %]
             </div>
         </div>
     </div>
+    
     [% INCLUDE src/footer.tt %]
 </body>
 </html>
-
-
-

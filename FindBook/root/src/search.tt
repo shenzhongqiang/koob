@@ -6,46 +6,57 @@
 </head>
 <body>
     <div class="outer-wrapper">
-        <div class="logo-background">
-            <a class="search-logo" href="[% c.uri_for_action('/index') %]">iFindBook</a> 
-            <div class="top-form-container">
-                <form method="get" action="/search">
-                    <div class="input-append top-form">
-                        <input id="srch-q" class="top-tb" type="text" name="q" value="[% q %]"/>
-                        <input id="srch-start" type="hidden" name="page_no" value=1 />
-                        <button type="submit" class="btn btn-primary top-btn"><i class="icon-search icon-white"></i></button>
-                    </div> 
-                </form>
-            </div>
-        </div>
-
-        <div class="search-result">
-            [% IF results.size == 0 %]
-            <div class="no-result">
-                没有找到书名中包含 "[% q %]" 的书籍哦！
-            </div>
-            [% ELSE %]
-            [% FOREACH i IN results %]
-            <div class="search-item">
-                <div><a href="[% i.clicktrackUrl %]" target="_blank">[% i.title %]</a></div>
-                <div class="text-warning"><small>来自：[% i.visibleUrl %]</small></div>
-                <div>[% i.content %]</div>
-            </div>
-            [% END %]
-            <div class="search-page">
-                <div class="pagination pagination-centered pagination-small">
-                    <ul>
-                    [% FOREACH i IN pages %]
-                        [% IF page_no == i.label %]
-                        <li class="active"><span>[% i.label %]</span></li>
-                        [% ELSE %]
-                        <li><a href="[% i.url %]">[% i.label %]</a></li>
-                        [% END %]
-                    [% END %]
+        <div class="navbar navbar-static-top navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
+                    <ul class="nav">
+                        <li class="active"><a href="/">搜索</a><li>
+                        <li><a href="/recommend">书单</a><li>
                     </ul>
                 </div>
             </div>
-            [% END %]
+        </div>
+        <div class="container search-container">
+            <div class="search-main">
+                <div class="top-form-container">
+                    <form method="get" action="/search">
+                        <div class="input-append top-form">
+                            <input id="srch-q" class="top-tb" type="text" name="q" value="[% q %]"/>
+                            <input id="srch-start" type="hidden" name="page_no" value=1 />
+                            <button type="submit" class="btn btn-primary top-btn"><i class="icon-search icon-white"></i></button>
+                        </div> 
+                    </form>
+                </div>
+
+                <div class="search-result">
+                    [% IF results.size == 0 %]
+                    <div class="no-result">
+                        没有找到书名中包含 "[% q %]" 的书籍哦！
+                    </div>
+                    [% ELSE %]
+                    [% FOREACH i IN results %]
+                    <div class="search-item">
+                        <div><a href="[% i.clicktrackUrl %]" target="_blank">[% i.title %]</a></div>
+                        <div class="text-warning"><small>来自：[% i.visibleUrl %]</small></div>
+                        <div>[% i.content %]</div>
+                    </div>
+                    [% END %]
+                    <div class="search-page">
+                        <div class="pagination pagination-centered pagination-small">
+                            <ul>
+                            [% FOREACH i IN pages %]
+                                [% IF page_no == i.label %]
+                                <li class="active"><span>[% i.label %]</span></li>
+                                [% ELSE %]
+                                <li><a href="[% i.url %]">[% i.label %]</a></li>
+                                [% END %]
+                            [% END %]
+                            </ul>
+                        </div>
+                    </div>
+                    [% END %]
+                </div>
+            </div>
         </div>
     </div>
     [% INCLUDE src/footer.tt %]

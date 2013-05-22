@@ -4,11 +4,15 @@
     <meta name="keywords" content="iFindBook,电子书,文档,ebook,pdf,chm,epub,mobi,txt,kindle" />
     <meta name="author" content="" />
 
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"></link>
-    <link rel="stylesheet" type="text/css" href="/static/css/c230413.css"></link>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.min.css" />
+<!--    <link rel="stylesheet" type="text/css" href="/static/css/c010513.css" /> -->
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/c140413.js"></script>
+    <script src="/static/js/c010513.js"></script>
+    
+    <script src="/static/js/book.js"></script>
     <script>
         $(document).ready(function() {
             search.init();

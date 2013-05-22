@@ -1,8 +1,14 @@
 package Exception;
-
-sub error_send_request {
-    my $url = shift;
-    die "error occurred when requesting $url\n";
-}
+use Exception::Class (
+    'RequestError' => {
+        fields => ['url'],
+    },
+    'BookAlreadyExists' => {
+        fields => ['isbn'],
+    },
+    'TagAlreadyExists' => {
+        fields => ['catalog', 'subcat'],
+    },
+);
 
 1;
