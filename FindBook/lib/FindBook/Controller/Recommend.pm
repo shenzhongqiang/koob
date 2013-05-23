@@ -111,7 +111,7 @@ sub subcat :Local :Args(1) {
     my $catalog = $tag_row->catalog;
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
     my @subcats = $c->model('FindBookDB::Tag')->search({catalog => $catalog}, {order_by => 'id'})->get_column('subcat')->all;
-    my @book_rows = $tag_row->books;
+    my @book_rows = $tag_row->books->search(undef, {page => $page_no, rows => 10});
     my @books;
     foreach(@book_rows) {
         my $book_hr = $c->forward('/book/list_book_summary', [$_]);
