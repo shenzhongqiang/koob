@@ -17,15 +17,18 @@ do
 done
 
 css_cmd="$css_script"
-for i in ${css-files[*]}
+for i in ${css_files[*]}
 do
     css_file="$css_dir/$i"
     css_cmd="$css_cmd $css_file"
 done
 
-`$js_cmd 2>&-`
+echo $js_cmd
+`$js_cmd`
 echo "compressed js files"
-`$css_cmd 2>&-`
+
+echo $css_cmd
+`$css_cmd`
 echo "compressed css files"
 
 mv *.css $css_dir
