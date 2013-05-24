@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir=`pwd`
+dir=`dirname $0`
 js_script="$dir/compressjs.sh"
 css_script="$dir/compresscss.sh"
 

@@ -6,11 +6,11 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/c220513.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css" /> 
+    <link rel="stylesheet" type="text/css" href="/static/css/c240513.css" />
+<!--    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />  -->
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/c220513.js"></script>
+    <script src="/static/js/c240513.js"></script>
     <script>
         $(document).ready(function() {
             search.init();
