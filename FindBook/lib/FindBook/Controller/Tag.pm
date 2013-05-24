@@ -56,7 +56,7 @@ sub add :Local :Args(0) {
         catalog => $catalog,
         subcat  => $subcat,
     });
-    $c->forward('/tag/index');
+    $c->res->redirect('/tag');
 }
 
 sub del :Local :Args(1) {
@@ -67,7 +67,7 @@ sub del :Local :Args(1) {
     $c->model('FindBookDB::Tag')->find({
         id => $id,
     })->delete;
-    $c->forward('/tag/index');
+    $c->res->redirect('/tag');
 }
 
 sub list_single_tag {
