@@ -41,13 +41,14 @@ var book = {
                 }
 
                 var book = data.book;
+                var rating = (book.rating == 0.0) ? 8.0 : book.rating;
                 $('input[name="title"]').val(book.title);
                 $('input[name="author"]').val(book.author);
                 $('input[name="translator"]').val(book.translator);
                 $('input[name="publisher"]').val(book.publisher);
                 $('input[name="pubdate"]').val(book.pubdate);
                 $('input[name="pages"]').val(book.pages);
-                $('input[name="rating"]').val(book.rating);
+                $('input[name="rating"]').val(rating);
                 
                 var img_url = book.img_url;
                 var ext = img_url.split(".").pop();
