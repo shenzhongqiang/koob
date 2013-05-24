@@ -45,7 +45,7 @@ sub index :Path :Args(0) {
 
     my $json_tags = JSON->new->encode(\%tags);
 
-    my @book_rows = $c->model('FindBookDB::Book')->all;
+    my @book_rows = $c->model('FindBookDB::Book')->search(undef, {order_by => {-desc => 'id'}})->all;
     my @all_books;
     foreach my $row (@book_rows) {
         my $book_hr = $c->forward('list_book_summary', [$row]);
