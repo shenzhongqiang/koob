@@ -21,6 +21,16 @@ Catalyst Controller.
 
 =cut
 
+sub begin :Private {
+    my ( $self, $c ) = @_;
+    if(!$c->user_exists) {
+        my $stat_url = $c->uri_for_action("/stat/index");
+        my $cb_url = $c->uri_for_action("/user/login", {callback => $stat_url});
+        $c->res->redirect($cb_url);
+        return;
+    }
+}
+
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     
