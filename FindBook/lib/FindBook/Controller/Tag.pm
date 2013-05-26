@@ -50,7 +50,9 @@ sub add :Local :Args(0) {
     
     my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
     if(defined $tag_row) {
-        TagAlreadyExists->throw(catalog => $catalog, subcat => $subcat);
+        $c->flash->{error} = "catalog $catalog > subcat $subcat already exists";
+        $c->res->redirect('/error');
+        return;
     }
     $c->model('FindBookDB::Tag')->create({
         catalog => $catalog,

@@ -45,7 +45,7 @@ sub index :Path :Args(0) {
 
     my $json_tags = JSON->new->encode(\%tags);
 
-    my @book_rows = $c->model('FindBookDB::Book')->search(undef, {order_by => {-desc => 'id'}})->all;
+    my @book_rows = $c->model('FindBookDB::Book')->search(undef, {order_by => {-desc => 'id'}, rows => 50})->all;
     my @all_books;
     foreach my $row (@book_rows) {
         my $book_hr = $c->forward('list_book_summary', [$row]);
@@ -89,8 +89,11 @@ sub add :Local :Args(0) {
     my $tag_id = $tag_row->id;
     my $book_row = $c->model('FindBookDB::Book')->find({isbn => $isbn});
     if(defined $book_row) {
-        BookAlreadyExists->throw(isbn => $isbn);
+        $c->flash->{error} = "Book $isbn already exists";
+        $c->res->redirect('/error');
+        return;
     }
+
     $c->model('FindBookDB::Book')->create({
         tag_id      => $tag_id,
         isbn        => $isbn,

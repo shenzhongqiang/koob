@@ -495,6 +495,10 @@ button.btn-modal-close{
 .rec-page {
     margin-top:20px;
 }
+.login-main {
+    margin-top:60px;
+    margin-bottom:100px;
+}
 
 @media(min-width:768px) and (max-width:1024px){
 .content {
@@ -560,6 +564,10 @@ div#thx-modal{
     width:80%;
 }
 .book-main{
+    width:80%;
+}
+.error {
+    margin-top:60px;
     width:80%;
 }
 .rec-main{
@@ -671,6 +679,10 @@ button.btn-modal-close{
     margin-bottom: 20px;
 }
 .book-main{
+    width:100%;
+}
+.error {
+    margin-top:60px;
     width:100%;
 }
 .book-search-label{
