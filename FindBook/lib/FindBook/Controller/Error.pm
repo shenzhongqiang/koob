@@ -23,8 +23,9 @@ Catalyst Controller.
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
-    $c->stash(template => "src/error.tt");
+    
+    my $error = $c->session->{error};
+    $c->stash(error => $error, template => "src/error.tt");
 }
 
 

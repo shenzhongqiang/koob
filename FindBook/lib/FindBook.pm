@@ -46,13 +46,13 @@ __PACKAGE__->config(
     disable_component_resolution_regex_fallback => 1,
     enable_catalyst_header => 1, # Send X-Catalyst header
     default_view => 'HTML',
-    session => {flash_to_stash => 1},
+    session => {expires => 3600},
 );
 
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default => {
     class           => 'SimpleDB',
-    user_model      => 'DB::User',
+    user_model      => 'FindBookDB::User',
     password_type   => 'clear',
     },
 };

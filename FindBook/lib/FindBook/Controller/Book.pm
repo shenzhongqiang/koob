@@ -25,6 +25,16 @@ Catalyst Controller.
 
 =cut
 
+sub begin :Private {
+    my ( $self, $c ) = @_;
+    if(!$c->user_exists) {
+        my $book_url = $c->uri_for_action("/book/index");
+        my $cb_url = $c->uri_for_action("/user/login", {callback => $book_url});
+        $c->res->redirect($cb_url);
+        return;
+    }
+}
+
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     
@@ -89,7 +99,7 @@ sub add :Local :Args(0) {
     my $tag_id = $tag_row->id;
     my $book_row = $c->model('FindBookDB::Book')->find({isbn => $isbn});
     if(defined $book_row) {
-        $c->flash->{error} = "Book $isbn already exists";
+        $c->session->{error} = "Book $isbn already exists";
         $c->res->redirect('/error');
         return;
     }

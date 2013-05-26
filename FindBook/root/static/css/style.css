@@ -499,6 +499,8 @@ button.btn-modal-close{
     margin-top:60px;
     margin-bottom:100px;
 }
+.login-error {
+}
 
 @media(min-width:768px) and (max-width:1024px){
 .content {

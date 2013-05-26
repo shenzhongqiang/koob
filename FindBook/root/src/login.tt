@@ -18,17 +18,22 @@
         </div>
 
         <div class="container login-main">
-            <form class="form-horizontal" action="[% c.uri_for_action('user/login') %]" method="post">
+            <form class="form-horizontal" action="[% url %]" method="post">
+                [% IF error %]
+                <div class="alert alert-error login-error">
+                    <strong>Error!</strong> [% error %]
+                </div>
+                [% END %]
                 <div class="control-group">
                     <label class="control-label">Username</label>
                     <div class="controls">
-                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Username" name="username">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="inputPassword">Password</label>
                     <div class="controls">
-                        <input type="password" id="inputPassword" placeholder="Password">
+                        <input type="password" id="inputPassword" placeholder="Password" name="password">
                     </div>
                 </div>
                 <div class="control-group">

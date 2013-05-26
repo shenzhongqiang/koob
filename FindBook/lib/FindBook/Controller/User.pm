@@ -31,14 +31,30 @@ sub login: Local :Args(0) {
     my ( $self, $c ) = @_;
     my $user = $c->req->params->{username};
     my $pwd = $c->req->params->{password};
-    my $url = $c->req->params->{red};
-    if($user && $pwd) {
-        if($c->authenticate({username => $user, password => $pwd})) {
+    my $cb_url = $c->req->params->{callback} || $c->uri_for_action("/index");
+    my $url = $c->uri_for_action("/user/login", {callback => $cb_url});
 
-        }
+    if(!defined $user && !defined $pwd) {
+        $c->stash(url => $url, template => "src/login.tt");
+        return;
     }
 
-    $c->stash(template => "src/login.tt");
+    if($user && $pwd) {
+        if($c->authenticate({username => $user, password => $pwd})) {
+            print "redirect to $cb_url\n";
+            $c->res->redirect($cb_url);
+            print "redirect done: $cb_url\n";
+            return;
+        }
+        else {
+            $c->stash(error => "Bad username or password");
+        }
+    }
+    else {
+        $c->stash(error => "Empty username or password");
+    };
+
+    $c->stash(url => $url, template => "src/login.tt");
 }
 
 

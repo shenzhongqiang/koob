@@ -21,6 +21,16 @@ Catalyst Controller.
 
 =cut
 
+sub begin :Private {
+    my ( $self, $c ) = @_;
+    if(!$c->user_exists) {
+        my $tag_url = $c->uri_for_action("/tag/index");
+        my $cb_url = $c->uri_for_action("/user/login", {callback => $tag_url});
+        $c->res->redirect($cb_url);
+        return;
+    }
+}
+
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     
@@ -50,7 +60,7 @@ sub add :Local :Args(0) {
     
     my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
     if(defined $tag_row) {
-        $c->flash->{error} = "catalog $catalog > subcat $subcat already exists";
+        $c->session->{error} = "catalog $catalog > subcat $subcat already exists";
         $c->res->redirect('/error');
         return;
     }
