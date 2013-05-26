@@ -17,9 +17,10 @@
             </div>
         </div>
         
-        <div class="container error">
-            <div class="alert">
-                <strong>Error!</strong> [% error %]
+        <div class="container">
+            <div class="aboutus-main">
+                <h4>错误!</h4>
+                <p>[% error %]</p>
             </div>
         </div>
     </div>

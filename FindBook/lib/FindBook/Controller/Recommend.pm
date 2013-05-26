@@ -108,6 +108,11 @@ sub subcat :Local :Args(1) {
     my $next_page_url = $c->forward('make_link', [$url, $next_page_no]);
 
     my $tag_row = $c->model('FindBookDB::Tag')->find({subcat => $subcat});
+    if(!defined $tag_row) {
+        my $error = "没有找到\"$subcat\"相关的书单哦";
+        $c->stash(error => $error, template => "src/error.tt");
+        return;
+    }
     my $catalog = $tag_row->catalog;
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
     my @subcats = $c->model('FindBookDB::Tag')->search({catalog => $catalog}, {order_by => 'id'})->get_column('subcat')->all;

@@ -37,6 +37,7 @@
                     [% END %]
                 </ul>
             </div>
+
             <div class="cat-main">
                 [% IF catalog %]
                 <div class="cat-label">[% catalog %]</div>
