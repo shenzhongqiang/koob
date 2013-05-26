@@ -25,19 +25,16 @@ Catalyst Controller.
 
 =cut
 
-sub begin :Private {
+sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
+    
     if(!$c->user_exists) {
         my $book_url = $c->uri_for_action("/book/index");
         my $cb_url = $c->uri_for_action("/user/login", {callback => $book_url});
         $c->res->redirect($cb_url);
         return;
     }
-}
 
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
-    
     my @tag_rows = $c->model('FindBookDB::Tag')->all;
     my %tags;
     foreach my $row (@tag_rows) {
@@ -81,6 +78,13 @@ sub list :Local :Args(1) {
 sub add :Local :Args(0) {
     my ( $self, $c ) = @_;
     
+    if(!$c->user_exists) {
+        my $book_url = $c->uri_for_action("/book/index");
+        my $cb_url = $c->uri_for_action("/user/login", {callback => $book_url});
+        $c->res->redirect($cb_url);
+        return;
+    }
+
     my $catalog = $c->req->params->{catalog};
     my $subcat = $c->req->params->{subcat};
     my $isbn = $c->req->params->{isbn};
@@ -124,6 +128,13 @@ sub add :Local :Args(0) {
 sub del :Local :Args(1) {
     my ( $self, $c ) = @_;
     
+    if(!$c->user_exists) {
+        my $book_url = $c->uri_for_action("/book/index");
+        my $cb_url = $c->uri_for_action("/user/login", {callback => $book_url});
+        $c->res->redirect($cb_url);
+        return;
+    }
+
     my $id = $c->req->arguments->[0];
     
     $c->model('FindBookDB::Book')->find({
