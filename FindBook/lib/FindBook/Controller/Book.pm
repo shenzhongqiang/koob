@@ -176,7 +176,15 @@ sub list_book_summary :Private {
     my $book_row = $c->req->args->[0];
     
     my $str = decode("utf-8", $book_row->description);
-    my $summary = encode("utf-8", substr($str, 0, 122));
+    my $len_short = length($str);
+    my $len_long = length($book_row->description);
+    my $summary;
+    if($len_long / $len_short > 1.5) {
+        $summary = encode("utf-8", substr($str, 0, 122));
+    }
+    else {
+        $summary = encode("utf-8", substr($str, 0, 244));
+    }
     my @producer;
     if(defined $book_row->author && $book_row->author) {
         push(@producer, $book_row->author);
