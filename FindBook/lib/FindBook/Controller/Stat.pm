@@ -34,7 +34,7 @@ sub begin :Private {
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     
-    my $num = $c->req->params->{num};
+    my $num = $c->req->params->{num} || 100;
     my @keywords;
     my @clicks;
     my @kw_rows = $c->model('FindBookDB::Keyword')->search(undef, {order_by => {-desc => "ts"}, rows => $num})->all;

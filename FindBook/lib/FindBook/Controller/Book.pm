@@ -27,7 +27,8 @@ Catalyst Controller.
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    
+    my $num = $c->req->params->{num} || 100;
+
     if(!$c->user_exists) {
         my $book_url = $c->uri_for_action("/book/index");
         my $cb_url = $c->uri_for_action("/user/login", {callback => $book_url});
@@ -52,7 +53,7 @@ sub index :Path :Args(0) {
 
     my $json_tags = JSON->new->encode(\%tags);
 
-    my @book_rows = $c->model('FindBookDB::Book')->search(undef, {order_by => {-desc => 'id'}, rows => 50})->all;
+    my @book_rows = $c->model('FindBookDB::Book')->search(undef, {order_by => {-desc => 'id'}, rows => $num})->all;
     my @all_books;
     foreach my $row (@book_rows) {
         my $book_hr = $c->forward('list_book_summary', [$row]);
