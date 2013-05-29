@@ -180,7 +180,7 @@ sub list_book_summary :Private {
     my $len_short = length($str);
     my $len_long = length($book_row->description);
     my $summary;
-    if($len_long / $len_short > 1.5) {
+    if($len_short > 0 && $len_long / $len_short > 1.5) {
         $summary = encode("utf-8", substr($str, 0, 122));
     }
     else {
