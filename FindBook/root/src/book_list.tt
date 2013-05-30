@@ -64,7 +64,6 @@
                         <a href="[% c.uri_for_action('/search/index')%]?q=[% book.title %]+pdf" class="btn btn-success btn-small">PDF</a>
                         <a href="[% c.uri_for_action('/search/index')%]?q=[% book.title %]+epub" class="btn btn-success btn-small">EPUB</a>
                         <a href="[% c.uri_for_action('/search/index')%]?q=[% book.title %]+mobi" class="btn btn-success btn-small">MOBI</a>
-                        <a href="[% c.uri_for_action('/search/index')%]?q=[% book.title %]+txt" class="btn btn-success btn-small">TXT</a>
                     </div>
                 </div>
 
