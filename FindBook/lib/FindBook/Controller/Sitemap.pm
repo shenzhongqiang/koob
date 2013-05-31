@@ -1,7 +1,6 @@
 package FindBook::Controller::Sitemap;
 use Moose;
 use namespace::autoclean;
-use WWW::Sitemap::XML;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -25,61 +24,62 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    my $map = WWW::Sitemap::XML->new;
     my $index_url = $c->uri_for_action("/index");
     my $rec_url = $c->uri_for_action("/recommend/index");
     my $date = today();
-    my @book_isbns = $c->model('FindBookDB::Book')->get_column('isbn')->all;
+    my @book_rows = $c->model('FindBookDB::Book')->all;
     my @cats = $c->model('FindBookDB::Tag')->search(undef, {distinct => 'catalog'})->get_column('catalog')->all;
     my @subcats = $c->model('FindBookDB::Tag')->search(undef, {distinct => 'subcat'})->get_column('subcat')->all;
     
-    $map->add(
+    my @urls;
+    push(@urls, {
         loc     => $index_url,
         lastmod => $date,
         changefreq => 'weekly',
         priority => 1.0,
-    );
+    });
     
-    $map->add(
+    push(@urls, {
         loc     => $rec_url,
         lastmod => $date,
         changefreq => 'daily',
         priority => 0.9,
-    );
+    });
     
     foreach(@cats) {
         my $cat_url = $c->uri_for_action("/recommend/catalog", $_);
-        $map->add(
+        push(@urls, {
             loc     => $cat_url,
             lastmod => $date,
             changefreq => 'daily',
             priority => 0.8,
-        );
+        });
     }
    
     foreach(@subcats) {
         my $subcat_url = $c->uri_for_action("/recommend/subcat", $_);
-        $map->add(
+        push(@urls, {
             loc     => $subcat_url,
             lastmod => $date,
             changefreq => 'daily',
             priority => 0.7,
-        );
+        });
     }
    
-    foreach(@book_isbns) {
-        my $book_url = $c->uri_for_action("/book/list", $_);
-        $map->add(
+    foreach(@book_rows) {
+        my $book_url = $c->uri_for_action("/book/list", $_->isbn);
+        my $pic_url = $index_url . "static/pics/" . $_->pic;
+        push(@urls, {
             loc     => $book_url,
             lastmod => $date,
             changefreq => 'weekly',
             priority => 0.6,
-        );
+            pic_url  => $pic_url,
+        });
     }
     
-    my $xml = $map->as_xml->toString(1);
     $c->res->content_type('text/xml');
-    $c->res->body($xml);
+    $c->stash(template => 'src/sitemap.tt', urls => \@urls);
 }
 
 
