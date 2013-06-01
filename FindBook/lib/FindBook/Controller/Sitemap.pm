@@ -107,7 +107,7 @@ sub so :Local :Args(0) {
         changefreq => 'daily',
         priority => 0.9,
     });
-    
+   
     foreach(@cats) {
         my $cat_url = $c->uri_for_action("/recommend/catalog", $_);
         push(@urls, {
@@ -138,7 +138,7 @@ sub so :Local :Args(0) {
         });
     }
     
-    $c->res->content_type('text/xml');
+    $c->res->content_type('text/plain');
     $c->stash(template => 'src/sitemap_so.tt', urls => \@urls);
 }
 
