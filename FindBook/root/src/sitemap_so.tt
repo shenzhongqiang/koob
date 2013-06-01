@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <urlset>
+        [% FOREACH i IN urls %]
+        <url>
+            <loc>[% i.loc %]</loc>
+            <lastmod>[% i.lastmod %]</lastmod>
+            <changefreq>[% i.changefreq %]</changefreq>
+            <priority>[% i.priority %]</priority>
+        </url> 
+        [% END %]
+    </urlset> 
