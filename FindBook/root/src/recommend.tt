@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    [% IF subcat and catalog %]
+    <title>[% subcat %] - [% catalog %] - iFindBook</title>
+    [% ELSIF catalog %]
+    <title>[% catalog %] - iFindBook</title>
+    [% ELSE %]
     <title>书单 - iFindBook</title>
+    [% END %]
     [% INCLUDE src/html_head.tt %]
 </head>
 <body>
