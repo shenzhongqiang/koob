@@ -136,10 +136,10 @@ sub del :Local :Args(1) {
         return;
     }
 
-    my $id = $c->req->arguments->[0];
+    my $isbn = $c->req->arguments->[0];
     
     $c->model('FindBookDB::Book')->find({
-        id => $id,
+        isbn => $isbn,
     })->delete;
     my $index_url = $c->uri_for_action('/book/index');
     $c->res->redirect('/book');
@@ -154,6 +154,7 @@ sub list_book :Private {
     $rating = rating_as_string($rating);
     my @desc_para = split /\n/, $book_row->description;
     my @auth_para = split /\n/, $book_row->author_intro;
+    my $summary = get_desc_summary($book_row->description);
     return {
         id      => $book_row->id,
         catalog => $tag_row->catalog,
@@ -167,6 +168,7 @@ sub list_book :Private {
         pubdate    => $book_row->pubdate,
         pages      => $book_row->pages,
         pic        => $book_row->pic,
+        summary     => $summary,
         description => \@desc_para,
         author_intro=> \@auth_para,
     };
@@ -176,16 +178,7 @@ sub list_book_summary :Private {
     my ( $self, $c ) = @_;
     my $book_row = $c->req->args->[0];
     
-    my $str = decode("utf-8", $book_row->description);
-    my $len_short = length($str);
-    my $len_long = length($book_row->description);
-    my $summary;
-    if($len_short > 0 && $len_long / $len_short > 1.5) {
-        $summary = encode("utf-8", substr($str, 0, 122));
-    }
-    else {
-        $summary = encode("utf-8", substr($str, 0, 244));
-    }
+    my $summary = get_desc_summary($book_row->description);
     my @producer;
     if(defined $book_row->author && $book_row->author) {
         push(@producer, $book_row->author);
@@ -215,6 +208,23 @@ sub list_book_summary :Private {
         isbn    => $book_row->isbn,
         summary => $summary,
     };
+}
+
+sub get_desc_summary {
+    my $desc = shift;
+    
+    my $str = decode("utf-8", $desc);
+    my $len_short = length($str);
+    my $len_long = length($desc);
+    my $summary;
+    if($len_short > 0 && $len_long / $len_short > 1.5) {
+        $summary = encode("utf-8", substr($str, 0, 122));
+    }
+    else {
+        $summary = encode("utf-8", substr($str, 0, 244));
+    }
+    
+    return $summary;
 }
 
 sub rating_as_string {

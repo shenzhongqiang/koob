@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>[% book.title %] - iFindBook</title>
+    <meta name="description" content="作者: [% book.author %],出版社: [% book.publisher %],简介: [% book.summary %]" />
+    <meta name="keywords" content="[% book.catalog %],[% book.subcat %],[% book.title %],[% book.author %],[% book.publisher %]" />
     [% INCLUDE src/html_head.tt %]
     <script>
         var tags = [% tags %];

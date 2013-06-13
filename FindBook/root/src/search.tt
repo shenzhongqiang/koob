@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>[% q %] - iFindBook</title>
+    <meta name="description" content="[% q %]" />
+    <meta name="keywords" content="[% q %]" />
     [% INCLUDE src/html_head.tt %]
 </head>
 <body>

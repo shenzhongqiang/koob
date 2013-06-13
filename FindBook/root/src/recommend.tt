@@ -3,10 +3,16 @@
 <head>
     [% IF subcat and catalog %]
     <title>[% subcat %] - [% catalog %] - iFindBook</title>
+    <meta name="description" content="[% subcat %]书单" />
+    <meta name="keywords" content="[% subcat %]书单" />
     [% ELSIF catalog %]
     <title>[% catalog %] - iFindBook</title>
+    <meta name="description" content="[% catalog %]书单" />
+    <meta name="keywords" content="[% catalog %]书单" />
     [% ELSE %]
     <title>书单 - iFindBook</title>
+    <meta name="description" content="书单" />
+    <meta name="keywords" content="书单" />
     [% END %]
     [% INCLUDE src/html_head.tt %]
 </head>
