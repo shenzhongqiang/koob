@@ -71,6 +71,11 @@ sub list :Local :Args(1) {
     my $isbn = $c->req->arguments->[0];
     
     my $book_row = $c->model('FindBookDB::Book')->find({isbn => $isbn});
+    if(!defined $book_row) {
+        my $error = "没有找到这本书哦";
+        $c->stash(error => $error, template => "src/error.tt");
+        return;
+    }
     my $book_hr = $c->forward('list_book', [$book_row]);
     $c->stash(book => $book_hr);
     $c->stash(template => "src/book_list.tt");
