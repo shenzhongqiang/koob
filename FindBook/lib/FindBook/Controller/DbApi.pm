@@ -49,7 +49,7 @@ sub get_book :Local :Args(1) {
             my $ext = get_file_ext($img_url);
             $pic = get_pic_path($isbn, $ext);
             Request::download_file($img_url, $pic);
-            $book{img_url} = $img_url;
+            $book{img_url} = "/static/pics/$isbn.$ext";
         }
         if(defined $data_hr->{pubdate}) {
             $book{pubdate} = $data_hr->{pubdate};
