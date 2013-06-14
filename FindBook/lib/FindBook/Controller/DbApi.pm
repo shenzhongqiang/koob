@@ -75,6 +75,7 @@ sub get_book :Local :Args(1) {
             $book{author} = join(",", @$author_ar);
         }
         $book{description} = $data_hr->{summary};
+        $book{description} =~ s/\*/\n\*/g;
         
         
         foreach(keys %book) {
