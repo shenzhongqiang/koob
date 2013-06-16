@@ -88,7 +88,7 @@
                             <td>[% i.isbn %]</td>
                             <td>[% i.title %]</td>
                             <td>[% i.pic %]</td>
-                            <td class="remove"><a href="[% c.uri_for_action('/book/del') %]/[% i.id %]"><i class="icon-remove"></i></a></td>
+                            <td class="remove"><a href="[% c.uri_for_action('/book/del') %]/[% i.isbn %]"><i class="icon-remove"></i></a></td>
                         </tr>
                         [% END %]
                     </tbody>
