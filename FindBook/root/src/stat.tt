@@ -10,7 +10,7 @@
             <h3>Keyword</h3>
             <table class="table table-condensed">
             [% FOREACH i IN keywords %]
-               <tr><td>[% i.ts %]</td><td>[% i.query %]</td><tr/>
+               <tr><td>[% i.ts %]</td><td>[% i.query | html %]</td><tr/>
             [% END %]
             </table>
         </div>

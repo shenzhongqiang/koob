@@ -24,6 +24,12 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     my $q = $c->req->params->{q};
+
+    if(!defined $q) {
+        $c->res->redirect("/");
+        return;
+    }
+
     my $page_no = $c->req->params->{page_no} || 1;
     my $result_hr = $c->forward('/cse/get_search_result', [$q, $page_no, 10]);
     my $pages_ar = $result_hr->{pages};

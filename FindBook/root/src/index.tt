@@ -28,7 +28,7 @@
             <div class="index-form-div">
                 <form method="get" action="/search">
                     <div class="input-append ctrl-container">
-                        <input id="srch-q" class="ct-srch-tb" type="text" name="q" value="[% q %]" />
+                        <input id="srch-q" class="ct-srch-tb" type="text" name="q" value="" />
                         <input id="srch-start" type="hidden" name="page_no" value=1 />
                         <button type="submit" class="btn btn-primary srch-btn"><i class="icon-search icon-white"></i></button>
                     </div>

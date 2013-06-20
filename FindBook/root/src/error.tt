@@ -20,7 +20,7 @@
         <div class="container">
             <div class="aboutus-main">
                 <h4>错误!</h4>
-                <p>[% error %]</p>
+                <p>[% error | html %]</p>
             </div>
         </div>
     </div>
