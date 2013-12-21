@@ -23,8 +23,6 @@ __PACKAGE__->table("book");
 __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "tag_id",
-  { data_type => "integer", is_nullable => 0 },
   "isbn",
   { data_type => "varchar", is_nullable => 0, size => 31 },
   "title",
@@ -50,7 +48,8 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->belongs_to("tag", "FindBook::Schema::Result::Tag", {"foreign.id" => "self.tag_id"});
+__PACKAGE__->has_many("book_tags", "FindBook::Schema::Result::BookTag", {"foreign.book_id" => "self.id"});
+__PACKAGE__->many_to_many("tags", "book_tags", "tag");
 
 
 # Created by DBIx::Class::Schema::Loader v0.07014 @ 2013-03-17 18:18:10

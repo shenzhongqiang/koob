@@ -1,12 +1,12 @@
 use utf8;
-package FindBook::Schema::Result::Tag;
+package FindBook::Schema::Result::BookTag;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-FindBook::Schema::Result::Tag
+FindBook::Schema::Result::BookTag
 
 =cut
 
@@ -18,19 +18,18 @@ use MooseX::NonMoose;
 use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
 
-__PACKAGE__->table("tag");
+__PACKAGE__->table("book_tag");
 
 __PACKAGE__->add_columns(
-  "id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "catalog",
-  { data_type => "varchar", is_nullable => 0, size => 31 },
-  "subcat",
-  { data_type => "varchar", is_nullable => 0, size => 31 },
+  "book_id",
+  { data_type => "integer", is_nullable => 0 },
+  "tag_id",
+  { data_type => "integer", is_nullable => 0 },
 );
 
-__PACKAGE__->set_primary_key("id");
-__PACKAGE__->has_many("book_tags", "FindBook::Schema::Result::BookTag", {"foreign.tag_id" => "self.id"});
+__PACKAGE__->set_primary_key("book_id", "tag_id");
+__PACKAGE__->belongs_to("tag", "FindBook::Schema::Result::Tag", {"foreign.id" => "self.tag_id"});
+__PACKAGE__->belongs_to("book", "FindBook::Schema::Result::Book", {"foreign.id" => "self.book_id"});
 
 
 # Created by DBIx::Class::Schema::Loader v0.07014 @ 2013-03-17 18:18:10

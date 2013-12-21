@@ -154,7 +154,7 @@ sub list_book :Private {
     my ( $self, $c ) = @_;
     my $book_row = $c->req->args->[0];
     
-    my $tag_row = $book_row->tag;
+    my $tag_row = $book_row->tags->first;
     my $rating = $book_row->rating || 0;
     $rating = rating_as_string($rating);
     my @desc_para = split /\n/, $book_row->description;
@@ -201,7 +201,7 @@ sub list_book_summary :Private {
     my $rating = $book_row->rating || 0;
     $rating = rating_as_string($rating);
     my $producer = join(" / ", @producer);
-    my $tag_row = $book_row->tag;
+    my $tag_row = $book_row->tags->first;
     return {
         id      => $book_row->id,
         catalog => $tag_row->catalog,
