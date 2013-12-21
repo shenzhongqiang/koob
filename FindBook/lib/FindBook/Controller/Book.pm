@@ -106,7 +106,6 @@ sub add :Local :Args(0) {
     my $author_intro = $c->req->params->{author_intro};
     
     my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
-    my $tag_id = $tag_row->id;
     my $book_row = $c->model('FindBookDB::Book')->find({isbn => $isbn});
     if(defined $book_row) {
         $c->session->{error} = "Book $isbn already exists";
@@ -114,8 +113,7 @@ sub add :Local :Args(0) {
         return;
     }
 
-    $c->model('FindBookDB::Book')->create({
-        tag_id      => $tag_id,
+    $book_row = $c->model('FindBookDB::Book')->create({
         isbn        => $isbn,
         title       => $title,
         rating      => $rating,
@@ -128,6 +126,11 @@ sub add :Local :Args(0) {
         description => $desc,
         author_intro=> $author_intro,
     });
+    $c->model('FindBookDB::BookTag')->create({
+        book_id => $book_row->id,
+        tag_id  => $tag_row->id,
+    });
+    
     $c->res->redirect('/book');
 }
 
@@ -143,6 +146,12 @@ sub del :Local :Args(1) {
 
     my $isbn = $c->req->arguments->[0];
     
+    $c->model('FindBookDB::BookTag')->search({
+        'book.isbn' => $isbn,
+    },
+    {
+        join => 'book',
+    })->delete;
     $c->model('FindBookDB::Book')->find({
         isbn => $isbn,
     })->delete;
@@ -154,7 +163,7 @@ sub list_book :Private {
     my ( $self, $c ) = @_;
     my $book_row = $c->req->args->[0];
     
-    my $tag_row = $book_row->tag;
+    my $tag_row = $book_row->tags->first;
     my $rating = $book_row->rating || 0;
     $rating = rating_as_string($rating);
     my @desc_para = split /\n/, $book_row->description;
@@ -201,7 +210,7 @@ sub list_book_summary :Private {
     my $rating = $book_row->rating || 0;
     $rating = rating_as_string($rating);
     my $producer = join(" / ", @producer);
-    my $tag_row = $book_row->tag;
+    my $tag_row = $book_row->tags->first;
     return {
         id      => $book_row->id,
         catalog => $tag_row->catalog,
