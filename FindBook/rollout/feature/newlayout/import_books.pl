@@ -35,6 +35,7 @@ while(1) {
             }
             if(!defined $book_row) {
                 my $pic = basename($book_hr->{img_url});
+                my $guard = $schema->txn_scope_guard;
                 $book_row = $schema->resultset("Book")->create({
                     isbn        => $book_hr->{isbn},
                     title       => $book_hr->{title},
@@ -52,6 +53,7 @@ while(1) {
                     book_id => $book_row->id,
                     tag_id  => $tag_row->id,
                 });
+                $guard->commit;
                 print "created ", $book_hr->{isbn}, "\n";
             }
         }
