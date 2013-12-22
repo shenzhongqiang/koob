@@ -4,6 +4,7 @@ use warnings;
 use File::Basename;
 use Encode;
 use Request;
+use Exception;
 use JSON;
 
 sub new {
@@ -27,10 +28,21 @@ sub get_book {
 
     my $url = $self->{db_base} . "/isbn/" . $isbn;
     my $resp = Request::send_request($url);
-
     my $data_hr = from_json($resp);
+
+    return parse_resp($data_hr);
+}
+
+
+sub parse_resp {
+    my $data_hr = shift;
+
     my %book;
     my $pic = "";
+    my $isbn = $data_hr->{isbn13};
+    if(!defined $isbn) {
+        IsbnNotExists->throw(error => "the book does not have a ISBN number");
+    }
     $book{isbn} = $isbn;
     if(defined $data_hr->{rating}) {
         $book{rating} = $data_hr->{rating}->{average} || 0.0;

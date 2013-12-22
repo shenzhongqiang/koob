@@ -9,6 +9,9 @@ use Exception::Class (
     'TagAlreadyExists' => {
         fields => ['catalog', 'subcat'],
     },
+    'IsbnNotExists' => {
+        fields => [],
+    },
 );
 
 1;
