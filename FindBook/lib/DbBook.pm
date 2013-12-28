@@ -51,7 +51,9 @@ sub parse_resp {
         my $img_url = $data_hr->{image};
         my $ext = get_file_ext($img_url);
         $pic = get_pic_path($isbn, $ext);
-        Request::download_file($img_url, $pic);
+        unless(-e $pic) {
+            Request::download_file($img_url, $pic);
+        }
         $book{img_url} = "/static/pics/$isbn.$ext";
     }
     if(defined $data_hr->{pubdate}) {
