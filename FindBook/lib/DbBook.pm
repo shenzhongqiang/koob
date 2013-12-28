@@ -80,7 +80,9 @@ sub parse_resp {
         $book{author} = join(",", @$author_ar);
     }
     $book{description} = $data_hr->{summary};
-    $book{description} =~ s/\*/\n\*/g;
+    if(! ($book{description} =~ /\*{2}/)) {
+        $book{description} =~ s/\*/\n\*/g;
+    }
     
     
     foreach(keys %book) {
