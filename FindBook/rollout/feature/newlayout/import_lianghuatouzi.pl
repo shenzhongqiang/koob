@@ -20,7 +20,7 @@ my $start = 0;
 my $count = 100;
 my $url_pattern = "https://api.douban.com/v2/book/search?" . "tag=$tag&start=%s&count=$count";
 
-my $tag_row = $schema->resultset("Tag")->find_or_create({catalog => "经管", subcat => "量化交易"});
+my $tag_row = $schema->resultset("Tag")->find_or_create({catalog => "交易", subcat => "量化交易"});
 while(1) {
     my $url = sprintf($url_pattern, $start);
     my $resp = Request::send_request($url);
@@ -32,6 +32,7 @@ while(1) {
             my $book_row = $schema->resultset("Book")->find({isbn => $book_hr->{isbn}});
             if(defined $book_row) {
                 print $book_hr->{isbn} . " already exists\n";
+                my $bt_row = $schema->resultset("BookTag")->find_or_create({book_id => $book_row->id, tag_id => $tag_row->id});
             }
             if(!defined $book_row) {
                 my $pic = basename($book_hr->{img_url});
