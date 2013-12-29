@@ -76,6 +76,7 @@ sub del :Local :Args(1) {
     
     my $id = $c->req->arguments->[0];
     
+    $c->model('FindBookDB::BookTag')->search({tag_id => $id})->delete;
     $c->model('FindBookDB::Tag')->find({
         id => $id,
     })->delete;
