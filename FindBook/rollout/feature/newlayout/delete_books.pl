@@ -22,7 +22,9 @@ foreach my $book_row (@book_rows) {
     chomp($sum);
     if($sum eq "634c5cb7b200c21bff123c9c124d528d" || $desc eq "") {
         # delete file
-        unlink($path) or warn "cannot delete file $path: $!\n";
+        if(-e $path) {
+            unlink($path) or warn "cannot delete file $path: $!\n";
+        }
         # delete rows in DB
         my $guard = $schema->txn_scope_guard;
         $book_row->book_tags->delete;
