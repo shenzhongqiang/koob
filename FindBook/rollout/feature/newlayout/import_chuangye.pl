@@ -9,6 +9,7 @@ use DbBook;
 use JSON;
 use File::Basename;
 use Try::Tiny;
+use Time::HiRes qw/gettimeofday tv_interval/;
 use Data::Dumper;
 
 my $schema = FindBook::Schema->connect(
@@ -27,8 +28,11 @@ while(1) {
     my $data_hr = from_json($resp);
     my $books_ar = $data_hr->{books};
     foreach my $item_hr (@$books_ar) {
+#        my $t0 = [gettimeofday];
         try {
             my $book_hr = DbBook::parse_resp($item_hr);
+#            my $t1 = [gettimeofday];
+#            print "parse:", tv_interval($t0, $t1), "\n";
             my $book_row = $schema->resultset("Book")->find({isbn => $book_hr->{isbn}});
             if(defined $book_row) {
                 print $book_hr->{isbn} . " already exists\n";
@@ -56,6 +60,8 @@ while(1) {
                 $guard->commit;
                 print "created ", $book_hr->{isbn}, "\n";
             }
+#            my $t3 = [gettimeofday];
+#            print "total:", tv_interval($t1, $t3), "\n";
         }
         catch {
             my $e = shift;

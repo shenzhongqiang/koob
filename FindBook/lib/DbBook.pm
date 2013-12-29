@@ -43,6 +43,10 @@ sub parse_resp {
     if(!defined $isbn) {
         IsbnNotExists->throw(error => "the book does not have a ISBN number");
     }
+    if($data_hr->{summary} eq "") {
+        NoDescription->throw(error => "the book $isbn does not have a description");
+    }
+
     $book{isbn} = $isbn;
     if(defined $data_hr->{rating}) {
         $book{rating} = $data_hr->{rating}->{average} || 0.0;
@@ -53,6 +57,9 @@ sub parse_resp {
         $pic = get_pic_path($isbn, $ext);
         unless(-e $pic) {
             Request::download_file($img_url, $pic);
+            if(!check_md5sum($pic)) {
+                NoValidPic->throw(error => "the book $isbn does not have a valid cover picture");
+            }
         }
         $book{img_url} = "/static/pics/$isbn.$ext";
     }
@@ -84,7 +91,6 @@ sub parse_resp {
         $book{description} =~ s/\*/\n\*/g;
     }
     
-    
     foreach(keys %book) {
         my $key = $_;
         my $val = $book{$key};
@@ -114,4 +120,15 @@ sub get_pic_path {
     return $pic_path;
 }
 
+sub check_md5sum {
+    my $pic_path = shift;
+
+    my $sum = `md5sum $pic_path | cut -f1 -d ' '`;
+    chomp($sum);
+    if($sum eq "634c5cb7b200c21bff123c9c124d528d") {
+        unlink($pic_path) or die "cannot delete file $pic_path: $!\n";
+        return 0;
+    }
+    return 1;
+}
 1;

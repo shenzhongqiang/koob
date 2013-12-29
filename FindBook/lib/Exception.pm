@@ -12,6 +12,12 @@ use Exception::Class (
     'IsbnNotExists' => {
         fields => [],
     },
+    'NoDescription' => {
+        fields => [],
+    },
+    'NoValidPic' => {
+        fields => [],
+    },
 );
 
 1;
