@@ -31,7 +31,6 @@ sub import_books {
     my $count = 100;
     my $url_pattern = "https://api.douban.com/v2/book/search?" . "tag=$tag&start=%s&count=$count";
     while(1) {
-        $start += $count;
         my $url = sprintf($url_pattern, $start);
         my $resp = Request::send_request($url);
         my $data_hr = from_json($resp);
@@ -76,5 +75,6 @@ sub import_books {
         if($data_hr->{count} < $count) {
             last;
         }
+        $start += $count;
     }
 }
