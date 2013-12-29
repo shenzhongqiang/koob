@@ -18,6 +18,9 @@ use Exception::Class (
     'NoValidPic' => {
         fields => [],
     },
+    'InBlacklist' => {
+        fields => [],
+    },
 );
 
 1;

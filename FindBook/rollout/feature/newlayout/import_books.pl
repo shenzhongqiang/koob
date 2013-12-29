@@ -10,6 +10,14 @@ use JSON;
 use File::Basename;
 use Try::Tiny;
 
+my $black_path = dirname(__FILE__);
+open(IN, "$black_path/blacklist") or die "cannot open blacklist: $!\n";
+my @blacklist = <IN>;
+chomp(@blacklist);
+close(IN);
+
+my %blacklist = map { $_ => 1} @blacklist;
+
 my $schema = FindBook::Schema->connect(
     'dbi:mysql:findbook', 'findbook', '58862455'
 );
@@ -38,9 +46,13 @@ sub import_books {
         foreach my $item_hr (@$books_ar) {
             try {
                 my $book_hr = DbBook::parse_resp($item_hr);
-                my $book_row = $schema->resultset("Book")->find({isbn => $book_hr->{isbn}});
+                my $isbn = $book_hr->{isbn};
+                if($blacklist{$isbn}) {
+                    InBlacklist->throw(error => "book $isbn is in blacklist");
+                }
+                my $book_row = $schema->resultset("Book")->find({isbn => $isbn});
                 if(defined $book_row) {
-                    print $book_hr->{isbn} . " already exists\n";
+                    print "$isbn already exists\n";
                     my $bt_row = $schema->resultset("BookTag")->find_or_create({book_id => $book_row->id, tag_id => $tag_row->id});
                 }
                 if(!defined $book_row) {
@@ -64,7 +76,7 @@ sub import_books {
                         tag_id  => $tag_row->id,
                     });
                     $guard->commit;
-                    print "created ", $book_hr->{isbn}, "\n";
+                    print "created $isbn\n";
                 }
             }
             catch {
