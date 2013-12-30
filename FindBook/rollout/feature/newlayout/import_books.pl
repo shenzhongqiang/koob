@@ -22,7 +22,7 @@ my $schema = FindBook::Schema->connect(
     'dbi:mysql:findbook', 'findbook', '58862455'
 );
 
-my @tag_rows = $schema->resultset("Tag")->all;
+my @tag_rows = $schema->resultset("Tag")->search(undef, {order_by => {-desc => 'id'}})->all;
 foreach my $tag_row (@tag_rows) {
     my $cat = $tag_row->catalog;
     my $subcat = $tag_row->subcat;
