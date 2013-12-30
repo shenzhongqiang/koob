@@ -22,6 +22,20 @@
             [% END %]
             </table>
         </div>
+        <div class="stats-ct">
+            <h3>Feedback</h3>
+            <table class="table table-condensed">
+            [% FOREACH i IN feedbacks %]
+                <tr><td>[% i.ts %]</td>
+                    <td>[% i.other_suggestions | html %]</td>
+                    <td>[% i.index_open_time | html %]</td>
+                    <td>[% i.search_resp_time | html %]</td>
+                    <td>[% i.ui_quality | html %]</td>
+                    <td>[% i.source_ip %]</td>
+                    <tr/>
+            [% END %]
+            </table>
+        </div>
     </div>
     [% INCLUDE src/footer.tt %]
 </body>

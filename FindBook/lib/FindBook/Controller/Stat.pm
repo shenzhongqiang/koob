@@ -37,8 +37,10 @@ sub index :Path :Args(0) {
     my $num = $c->req->params->{num} || 100;
     my @keywords;
     my @clicks;
+    my @feedbacks;
     my @kw_rows = $c->model('FindBookDB::Keyword')->search(undef, {order_by => {-desc => "ts"}, rows => $num})->all;
     my @ct_rows = $c->model('FindBookDB::Clicktrack')->search(undef, {order_by => {-desc => "ts"}, rows => $num})->all;
+    my @fb_rows = $c->model('FindBookDB::Feedback')->search(undef, {order_by => {-desc => "ts"}})->all;
     foreach(@kw_rows) {
         my %kw = $_->get_columns();
         push(@keywords, \%kw);
@@ -49,10 +51,16 @@ sub index :Path :Args(0) {
         push(@clicks, \%ct);
     }
     
+    foreach(@fb_rows) {
+        my %fb = $_->get_columns();
+        push(@feedbacks, \%fb);
+    }
+    
     $c->stash(
         template => "src/stat.tt",
         keywords => \@keywords,
         clicks   => \@clicks,
+        feedbacks=> \@feedbacks,
     );
 }
 
