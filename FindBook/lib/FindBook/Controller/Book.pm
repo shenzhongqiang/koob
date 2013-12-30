@@ -152,7 +152,7 @@ sub del :Local :Args(1) {
     {
         join => 'book',
     })->delete;
-    $c->model('FindBookDB::Book')->find({
+    $c->model('FindBookDB::Book')->search({
         isbn => $isbn,
     })->delete;
     my $index_url = $c->uri_for_action('/book/index');
