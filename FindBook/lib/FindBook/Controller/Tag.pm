@@ -34,7 +34,7 @@ sub begin :Private {
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     
-    my @tag_rows = $c->model('FindBookDB::Tag')->all;
+    my @tag_rows = $c->model('FindBookDB::Tag')->search(undef, {order_by => ['catalog', 'subcat']})->all;
     my @all_tags;
     foreach my $row (@tag_rows) {
         my $tag_hr = list_single_tag($row);
