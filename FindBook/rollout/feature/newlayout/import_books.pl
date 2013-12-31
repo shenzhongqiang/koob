@@ -9,6 +9,7 @@ use DbBook;
 use JSON;
 use File::Basename;
 use Try::Tiny;
+use POSIX qw/strftime/;
 
 my $black_path = dirname(__FILE__);
 open(IN, "$black_path/blacklist") or die "cannot open blacklist: $!\n";
@@ -52,7 +53,7 @@ sub import_books {
                 }
                 my $book_row = $schema->resultset("Book")->find({isbn => $isbn});
                 if(defined $book_row) {
-                    print "$isbn already exists\n";
+                    print now(), " - $isbn already exists\n";
                     my $bt_row = $schema->resultset("BookTag")->find_or_create({book_id => $book_row->id, tag_id => $tag_row->id});
                 }
                 if(!defined $book_row) {
@@ -76,12 +77,12 @@ sub import_books {
                         tag_id  => $tag_row->id,
                     });
                     $guard->commit;
-                    print "created $isbn\n";
+                    print now(), " - created $isbn\n";
                 }
             }
             catch {
                 my $e = shift;
-                print "$e\n";
+                print now(), " - $e\n";
             };
         }
         if($data_hr->{count} < $count) {
@@ -89,4 +90,8 @@ sub import_books {
         }
         $start += $count;
     }
+}
+
+sub now {
+    return strftime("%Y-%m-%d %H:%M:%S", localtime);
 }
