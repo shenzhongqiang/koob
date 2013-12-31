@@ -8,25 +8,40 @@ use Request;
 use File::Basename;
 use Template;
 
-my $root_dir = dirname(__FILE__) . "/../root/";
+my $INDEX_URL = "http://www.ifindbook.net";
+my $ROOT_DIR = dirname(__FILE__) . "/../root/";
+my $DATE = today();
+
 my $tt = Template->new({
-    INCLUDE_PATH => $root_dir, 
-    OUTPUT_PATH => $root_dir
+    INCLUDE_PATH => $ROOT_DIR, 
+    OUTPUT_PATH => $ROOT_DIR
 }) || die "template error: $!\n";
-my $urls_ar = generate_sitemap();
+my $urls_ar = get_all_urls();
 my $split_hr = split_urls($urls_ar);
+my @sitemaps;
 foreach (keys %$split_hr) {
     my $array_i = $_;
     my $urls_ar = $split_hr->{$array_i};
     my $filename = "sitemap$array_i\.xml";
+    my $filepath = $ROOT_DIR . $filename;
     $tt->process('src/sitemap.tt', {urls => $urls_ar}, $filename);
+    push(@sitemaps, {
+        loc => $INDEX_URL . "/" . $filename,
+        lastmod => $DATE,
+    });
+}
+
+generate_sitemap_index(\@sitemaps);
+
+
+sub generate_sitemap_index {
+    my $sitemaps_ar = shift;
+    $tt->process('src/sitemap_index.tt', {sitemaps => $sitemaps_ar}, 'sitemap.xml');
 }
 
 
-sub generate_sitemap {
-    my $index_url = "http://www.ifindbook.net";
-    my $rec_url = $index_url . "/recommend";
-    my $date = today();
+sub get_all_urls {
+    my $rec_url = $INDEX_URL . "/recommend";
     my $schema = FindBook::Schema->connect(
         'dbi:mysql:findbook', 'findbook', '58862455'
     );
@@ -37,15 +52,15 @@ sub generate_sitemap {
     
     my @urls;
     push(@urls, {
-        loc     => $index_url,
-        lastmod => $date,
+        loc     => $INDEX_URL,
+        lastmod => $DATE,
         changefreq => 'weekly',
         priority => 1.0,
     });
     
     push(@urls, {
         loc     => $rec_url,
-        lastmod => $date,
+        lastmod => $DATE,
         changefreq => 'daily',
         priority => 0.9,
     });
@@ -54,7 +69,7 @@ sub generate_sitemap {
         my $cat_url = $rec_url . "/catalog/" . $_;
         push(@urls, {
             loc     => $cat_url,
-            lastmod => $date,
+            lastmod => $DATE,
             changefreq => 'daily',
             priority => 0.8,
         });
@@ -64,18 +79,18 @@ sub generate_sitemap {
         my $subcat_url = $rec_url . "/subcat/" . $_;
         push(@urls, {
             loc     => $subcat_url,
-            lastmod => $date,
+            lastmod => $DATE,
             changefreq => 'daily',
             priority => 0.7,
         });
     }
    
     foreach(@book_rows) {
-        my $book_url = $index_url . "/book/list/" . $_->isbn;
-        my $pic_url = $index_url . "/static/pics/" . $_->pic;
+        my $book_url = $INDEX_URL . "/book/list/" . $_->isbn;
+        my $pic_url = $INDEX_URL . "/static/pics/" . $_->pic;
         push(@urls, {
             loc     => $book_url,
-            lastmod => $date,
+            lastmod => $DATE,
             changefreq => 'weekly',
             priority => 0.6,
             pic_url  => $pic_url,

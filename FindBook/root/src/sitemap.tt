@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-    xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-        [% FOREACH i IN urls %]
-        <url>
-            <loc>[% i.loc %]</loc>
-            <lastmod>[% i.lastmod %]</lastmod>
-            <changefreq>[% i.changefreq %]</changefreq>
-            <priority>[% i.priority %]</priority>
-            [% IF i.pic_url %]
-            <image:image>
-                <image:loc>[% i.pic_url %]</image:loc>
-            </image:image>
-            [% END %]
-        </url> 
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    [% FOREACH i IN urls %]
+    <url>
+        <loc>[% i.loc %]</loc>
+        <lastmod>[% i.lastmod %]</lastmod>
+        <changefreq>[% i.changefreq %]</changefreq>
+        <priority>[% i.priority %]</priority>
+        [% IF i.pic_url %]
+        <image:image>
+            <image:loc>[% i.pic_url %]</image:loc>
+        </image:image>
         [% END %]
-    </urlset> 
+    </url> 
+    [% END %]
+</urlset> 
