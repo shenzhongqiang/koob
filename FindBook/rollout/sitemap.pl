@@ -19,6 +19,7 @@ my $tt = Template->new({
 my $urls_ar = get_all_urls();
 my $split_hr = split_urls($urls_ar);
 my @sitemaps;
+print "total urls:", scalar @$urls_ar, "\n";
 foreach (keys %$split_hr) {
     my $array_i = $_;
     my $urls_ar = $split_hr->{$array_i};
@@ -29,6 +30,7 @@ foreach (keys %$split_hr) {
         loc => $INDEX_URL . "/" . $filename,
         lastmod => $DATE,
     });
+    print "created $filename\n";
 }
 
 generate_sitemap_index(\@sitemaps);
@@ -37,6 +39,7 @@ generate_sitemap_index(\@sitemaps);
 sub generate_sitemap_index {
     my $sitemaps_ar = shift;
     $tt->process('src/sitemap_index.tt', {sitemaps => $sitemaps_ar}, 'sitemap.xml');
+    print "created sitemap index file sitemap.xml\n";
 }
 
 
