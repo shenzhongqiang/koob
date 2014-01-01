@@ -78,7 +78,6 @@ div.index-form-div{
 
 div.ctrl-container{
     width:100%;
-    word-wrap:break-word;
 }
 
 .ct-srch-tb{
@@ -594,6 +593,10 @@ div.index-form-div{
     width:100%
 }
 
+.index-main {
+    width:90%;
+
+}
 div.ctrl-container{
     width:100%
 }
