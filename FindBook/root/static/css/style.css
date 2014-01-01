@@ -525,7 +525,7 @@ a.search-logo{
 }
 
 .search-main{
-    width:80%;
+    width:100%;
 }
 .top-form-container{
     width:100%;
@@ -540,7 +540,7 @@ a.search-logo{
 }
 
 .aboutus-main{
-    width:80%;
+    width:100%;
     margin-left:auto;
     margin-right:auto;
 }
@@ -554,14 +554,14 @@ div#thx-modal{
     width:80%;
 }
 .book-main{
-    width:90%;
+    width:100%;
 }
 .error {
     margin-top:60px;
     width:80%;
 }
 .rec-main{
-    width:90%;
+    width:100%;
 }
 .cat-main{
     width:70%;
@@ -617,7 +617,7 @@ div.logo-container{
 }
 
 .search-main{
-    width:80%;
+    width:90%;
     margin-left:auto;
     margin-right:auto;
 }
@@ -642,7 +642,7 @@ a.search-logo{
 }
 
 .aboutus-main{
-    width:80%;
+    width:90%;
     margin-left:auto;
     margin-right:auto;
 }
