@@ -31,7 +31,7 @@
                         <input id="srch-q" class="ct-srch-tb" type="text" name="q" value="" />
                         <input id="srch-start" type="hidden" name="page_no" value=1 />
                         <button type="submit" class="btn btn-primary srch-btn"><i class="icon-search icon-white"></i></button>
-                        <span class="help-block">提示：输入书名+格式名即可搜索指定格式的电子书，如<a href="[% c.uri_for_action('search/index', {q => '失落的秘符 mobi'}) %]">失落的秘符 mobi</a></span>
+                        <p class="help-block">提示：输入书名+格式名即可搜索指定格式的电子书，如<a href="[% c.uri_for_action('search/index', {q => '失落的秘符 mobi'}) %]">失落的秘符 mobi</a></p>
                     </div>
                 </form>
             </div>

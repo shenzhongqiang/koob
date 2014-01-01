@@ -8,11 +8,11 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.min.css" />
-<!--    <link rel="stylesheet" type="text/css" href="/static/css/c010613.css" /> -->
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+<!--    <link rel="stylesheet" type="text/css" href="/static/css/c010114.css" />  -->
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" /> 
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/c010613.js"></script>
+    <script src="/static/js/c010114.js"></script>
     <script>
         $(document).ready(function() {
             search.init();

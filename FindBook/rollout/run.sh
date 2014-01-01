@@ -24,11 +24,11 @@ do
 done
 
 echo $js_cmd
-`$js_cmd`
+eval $js_cmd
 echo "compressed js files"
 
 echo $css_cmd
-`$css_cmd`
+eval $css_cmd
 echo "compressed css files"
 
 mv *.css $css_dir
