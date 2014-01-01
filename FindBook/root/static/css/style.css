@@ -90,6 +90,10 @@ div.ctrl-container{
     height:30px
 }
 
+.help-block {
+    font-size:14px;
+}
+
 div.logo-background{
     background:#eee;
     padding-top:20px;
