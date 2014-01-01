@@ -44,30 +44,6 @@ __PACKAGE__->table("feedback");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 index_open_time
-
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 31
-
-=head2 search_resp_time
-
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 31
-
-=head2 search_result_quality
-
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 31
-
-=head2 ui_quality
-
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 31
-
 =head2 other_suggestions
 
   data_type: 'text'
@@ -91,14 +67,6 @@ __PACKAGE__->table("feedback");
 __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "index_open_time",
-  { data_type => "varchar", is_nullable => 1, size => 31 },
-  "search_resp_time",
-  { data_type => "varchar", is_nullable => 1, size => 31 },
-  "search_result_quality",
-  { data_type => "varchar", is_nullable => 1, size => 31 },
-  "ui_quality",
-  { data_type => "varchar", is_nullable => 1, size => 31 },
   "other_suggestions",
   { data_type => "text", is_nullable => 1 },
   "source_ip",

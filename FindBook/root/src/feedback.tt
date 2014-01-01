@@ -24,65 +24,12 @@
                     <p class="lead">意见反馈</p>
                 </div>
                 <div class="intro-content">
-                    <p>感谢您抽出时间回答以下问题，为我们提供宝贵意见。我们非常重视您的反馈意见，并且会利用它们不断改善我们的服务。</p>
                     <form id="form-fdbk" method="post" action="[% c.uri_for_action('/feedback/add') %]">
                         <fieldset>
-                            <label>您觉得网站主页的打开速度快吗？</label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="index_open_time" value="fast">
-                                <span class="muted">很快</span>
-                            </label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="index_open_time" value="ok">
-                                <span class="muted">一般</span>
-                            </label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="index_open_time" value="slow">
-                                <span class="muted">很慢</span>
-                            </label>
-                            <p></p>
-                            <label>您觉得网站搜索速度快吗？</label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="search_resp_time" value="fast">
-                                <span class="muted">很快</span>
-                            </label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="search_resp_time" value="ok">
-                                <span class="muted">一般</span>
-                            </label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="search_resp_time" value="slow">
-                                <span class="muted">很慢</span>
-                            </label>
-                            <p></p>
-                            <label>搜索结果对您有帮助吗？</label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="search_result_quality" value="yes">
-                                <span class="muted">有帮助</span>
-                            </label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="search_result_quality" value="no">
-                                <span class="muted">没有帮助</span>
-                            </label>
-                            <p></p>
-                            <label>网站界面设计令您满意吗？</label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="ui_quality" value="yes">
-                                <span class="muted">满意</span>
-                            </label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="ui_quality" value="ok">
-                                <span class="muted">凑合</span>
-                            </label>
-                            <label class="radio inline unwrap">
-                                <input type="radio" name="ui_quality" value="no">
-                                <span class="muted">很难看</span>
-                            </label>
-                            <p></p>
-                            <label>其他意见</label>
+                            <label>留言</label>
                             <textarea class="muted othsg" rows="6" name="other_suggestions"></textarea>
                             <p></p>
-                            <button type="submit" class="btn btn-primary btn-fdbk-submit">提交反馈</button>
+                            <button type="submit" class="btn btn-primary btn-fdbk-submit">提交</button>
                         </fieldset>
                     </form>
                 </div>

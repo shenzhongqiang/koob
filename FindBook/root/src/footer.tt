@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row-fluid">
             <div class="span8 offset2">
-            <p class="text-center muted ft-top">友情链接:
+            <p class="text-center muted fb-ft-top">友情链接:
             <a class="friend" href="http://ishare.iask.sina.com.cn">新浪爱问共享资料</a>
             <a class="friend" href="http://wenku.baidu.com">百度文库</a>
             <a class="friend" href="http://www.docin.com">豆丁</a>
