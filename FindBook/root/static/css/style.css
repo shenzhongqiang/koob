@@ -191,7 +191,7 @@ div.ra-tab-content {
 }
 
 .othsg{
-    width:100%
+    width:96%
 }
 
 .btn-fdbk-submit{
@@ -309,10 +309,7 @@ button.btn-modal-close{
     padding-top:20px;
 }
 .rec-main{
-    margin-left:auto;
-    margin-right:auto;
     margin-bottom:150px;
-    width:80%;
 }
 .cat-sidebar {
     float:left;
