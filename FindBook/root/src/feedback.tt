@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="outer-wrapper">
-        <div class="navbar navbar-static-top navbar-inverse">
+        <div class="navbar navbar-static-top navbar-inverse fb-nav">
             <div class="navbar-inner">
                 <div class="container">
                     <a class="brand" href="[% c.uri_for_action('/index') %]">iFindBook</a>
