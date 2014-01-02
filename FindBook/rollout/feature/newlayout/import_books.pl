@@ -11,8 +11,9 @@ use File::Basename;
 use Try::Tiny;
 use POSIX qw/strftime/;
 
-my $black_path = dirname(__FILE__);
-open(IN, "$black_path/blacklist") or die "cannot open blacklist: $!\n";
+my $TAG_FILE = dirname(__FILE__) . "/tag";
+my $BLACK_PATH = dirname(__FILE__);
+open(IN, "$BLACK_PATH/blacklist") or die "cannot open blacklist: $!\n";
 my @blacklist = <IN>;
 chomp(@blacklist);
 close(IN);
@@ -23,8 +24,16 @@ my $schema = FindBook::Schema->connect(
     'dbi:mysql:findbook', 'findbook', '58862455'
 );
 
-my @tag_rows = $schema->resultset("Tag")->search(undef, {order_by => {-desc => 'id'}})->all;
+my $tag_id = get_start_tag_id();
+my @tag_rows;
+if($tag_id) {
+    @tag_rows = $schema->resultset("Tag")->search({id => {'<=', $tag_id}}, {order_by => {-desc => 'id'}})->all;
+}
+else {
+    @tag_rows = $schema->resultset("Tag")->search(undef, {order_by => {-desc => 'id'}})->all;
+}
 foreach my $tag_row (@tag_rows) {
+    log_tag_id($tag_row->id);
     my $cat = $tag_row->catalog;
     my $subcat = $tag_row->subcat;
     print "importing $cat/$subcat ...\n";
@@ -94,4 +103,24 @@ sub import_books {
 
 sub now {
     return strftime("%Y-%m-%d %H:%M:%S", localtime);
+}
+
+sub get_start_tag_id {
+    if(-e $TAG_FILE) {
+        open(IN, $TAG_FILE) or die "cannot open tag: $!\n";
+        my @lines = <IN>;
+        close(IN);
+        my $tag_id = $lines[0];
+        return $tag_id;
+    }
+    else {
+        return 0;
+    }
+}
+
+sub log_tag_id {
+    my $tag_id = shift;
+    open(OUT, "> $TAG_FILE") or die "canont open tag: $!\n";
+    print OUT $tag_id;
+    close(OUT);
 }
