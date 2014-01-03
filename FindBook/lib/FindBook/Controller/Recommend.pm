@@ -37,7 +37,11 @@ sub index :Path :Args(0) {
     my $next_page_no = $page_no >= $pages ? 0 : $page_no + 1;
     my $prev_page_url = $c->forward('make_link', ['/recommend/index', $prev_page_no]);
     my $next_page_url = $c->forward('make_link', ['/recommend/index', $next_page_no]);
-    my @book_rows = $c->model('FindBookDB::Book')->search(undef, {order_by => {-desc => 'rating'}, page => $page_no, rows => 10});
+    my @book_rows = $c->model('FindBookDB::Book')->search(undef, {
+        prefetch => {'book_tags' => 'tag'},
+        order_by => {-desc => 'rating'}, 
+        page => $page_no, 
+        rows => 10});
     my @books;
     foreach(@book_rows) {
         my $book_hr = $c->forward('/book/list_book_summary', [$_]);
@@ -72,7 +76,7 @@ sub catalog :Local :Args(1) {
     my $prev_page_url = $c->forward('make_link', [$url, $prev_page_no]);
     my $next_page_url = $c->forward('make_link', [$url, $next_page_no]);
     my @book_rows = $c->model('FindBookDB::Book')->search({'tag.catalog' => $catalog}, {
-        join => {'book_tags' => 'tag'}, 
+        prefetch => {'book_tags' => 'tag'},
         order_by => {-desc => 'rating'}, 
         page => $page_no, 
         rows => 10,
@@ -122,7 +126,7 @@ sub subcat :Local :Args(1) {
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
     my @subcats = $c->model('FindBookDB::Tag')->search({catalog => $catalog}, {order_by => 'id'})->get_column('subcat')->all;
     my @book_rows = $c->model('FindBookDB::Book')->search({'tag.subcat' => $subcat}, {
-        join => {'book_tags' => 'tag'},
+        prefetch => {'book_tags' => 'tag'},
         order_by => {-desc => 'rating'}, 
         page => $page_no, 
         rows => 10,
