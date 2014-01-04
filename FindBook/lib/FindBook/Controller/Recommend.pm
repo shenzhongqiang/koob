@@ -76,14 +76,13 @@ sub catalog :Local :Args(1) {
     my $prev_page_url = $c->forward('make_link', [$url, $prev_page_no]);
     my $next_page_url = $c->forward('make_link', [$url, $next_page_no]);
 
-    my @tag_ids = $c->model('FindBookDB::Tag')->search({catalog => $catalog})->get_column('id')->all;
-    if(!@tag_ids) {
+    if($book_count == 0) {
         my $error = "没有找到\"$catalog\"相关的书单哦";
         $c->stash(error => $error, template => "src/error.tt");
         return;
     }
 
-    my @book_rows = $c->model('FindBookDB::Book')->search({'tag.id' => { -in => \@tag_ids}}, {
+    my @book_rows = $c->model('FindBookDB::Book')->search({'tag.catalog' => $catalog}, {
         prefetch => {'book_tags' => 'tag'},
         order_by => {-desc => 'rating'}, 
         page => $page_no, 
