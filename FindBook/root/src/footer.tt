@@ -7,8 +7,6 @@
             <a class="friend" href="http://wenku.baidu.com" target="_blank">百度文库</a>
             <a class="friend" href="http://www.docin.com" target="_blank">豆丁</a>
             <a class="friend" href="http://www.doc88.com" target="_blank">道客巴巴</a>
-            <a class="friend" href="http://www.dir001.com" target="_blank">第一分类目录</a>
-            <a class="friend" href="http://www.114la.com" target="_blank">114啦网址导航</a></p>
             <p class="text-center muted">
                 <a class="link" href="[% c.uri_for_action('/aboutus/index') %]">关于我们</a>
                 <span class="link">·</span>
