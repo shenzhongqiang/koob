@@ -75,7 +75,15 @@ sub catalog :Local :Args(1) {
     my $next_page_no = $page_no >= $pages ? 0 : $page_no + 1;
     my $prev_page_url = $c->forward('make_link', [$url, $prev_page_no]);
     my $next_page_url = $c->forward('make_link', [$url, $next_page_no]);
-    my @book_rows = $c->model('FindBookDB::Book')->search({'tag.catalog' => $catalog}, {
+
+    my @tag_ids = $c->model('FindBookDB::Tag')->search({catalog => $catalog})->get_column('id')->all;
+    if(!@tag_ids) {
+        my $error = "没有找到\"$catalog\"相关的书单哦";
+        $c->stash(error => $error, template => "src/error.tt");
+        return;
+    }
+
+    my @book_rows = $c->model('FindBookDB::Book')->search({'tag.id' => { -in => \@tag_ids}}, {
         prefetch => {'book_tags' => 'tag'},
         order_by => {-desc => 'rating'}, 
         page => $page_no, 
@@ -125,7 +133,7 @@ sub subcat :Local :Args(1) {
     my $catalog = $tag_row->catalog;
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
     my @subcats = $c->model('FindBookDB::Tag')->search({catalog => $catalog}, {order_by => 'id'})->get_column('subcat')->all;
-    my @book_rows = $c->model('FindBookDB::Book')->search({'tag.subcat' => $subcat}, {
+    my @book_rows = $c->model('FindBookDB::Book')->search({'tag.id' => $tag_row->id}, {
         prefetch => {'book_tags' => 'tag'},
         order_by => {-desc => 'rating'}, 
         page => $page_no, 
