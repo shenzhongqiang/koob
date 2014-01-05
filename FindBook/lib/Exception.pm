@@ -21,6 +21,9 @@ use Exception::Class (
     'InBlacklist' => {
         fields => [],
     },
+    'NoHostFound' => {
+        fields => [],
+    },
 );
 
 1;
