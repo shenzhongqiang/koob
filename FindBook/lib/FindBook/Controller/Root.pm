@@ -29,8 +29,32 @@ The root page (/)
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    # Hello World
-    $c->stash(template => 'src/index.tt');
+    my @tag_rows = $c->model('FindBookDB::Tag')->search(undef, {order_by => [qw/catalog id/]})->all;
+    my $tag_ar = array_tag(\@tag_rows);
+    $c->stash(
+        template => 'src/index.tt',
+        tags => $tag_ar
+    );
+}
+
+sub array_tag {
+    my $tag_rows_ar = shift;
+    my @tags;
+    my $last_cat = '';
+    my $tag_hr;
+    foreach my $tag_row (@$tag_rows_ar) {
+        my $catalog = $tag_row->catalog;
+        my $subcat = $tag_row->subcat;
+        if($catalog ne $last_cat) {
+            $last_cat = $catalog;
+            $tag_hr = {catalog => $catalog, subcat => []};
+            push(@tags, $tag_hr);
+        }
+        my $subcat_ar = $tag_hr->{subcat};
+        push(@$subcat_ar, $subcat);
+    }
+
+    return \@tags;
 }
 
 =head2 default

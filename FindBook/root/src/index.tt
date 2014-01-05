@@ -34,7 +34,23 @@
                     </div>
                     <p class="help-block">提示：输入书名+格式名即可搜索指定格式的电子书，如<a href="[% c.uri_for_action('search/index', {q => '失落的秘符 mobi'}) %]">失落的秘符 mobi</a></p>
                 </form>
+                <div class="bl clearfix">
+                    <p class="lead">书单</p>
+                    [% FOREACH t IN tags %]
+                    [% cat_url = c.uri_for_action("/recommend/catalog") _ "/" _ t.catalog %]
+                    <div class="index-cat-main"><a href="[% cat_url %]">[% t.catalog %]</a><i class="icon-chevron-right"></i></div>
+                    <div class="index-subcat-main">
+                        <div class="subcat-content">
+                            [% FOREACH s IN t.subcat %]
+                            [% subcat_url = c.uri_for_action("/recommend/subcat") _ "/" _ s %]
+                            <span><a href="[% subcat_url %]">[% s %]</a></span>
+                            [% END %]
+                        </div>
+                    </div>
+                    [% END %]
+                </div>
             </div>
+
         </div>
     </div>
     [% INCLUDE src/footer.tt %]
