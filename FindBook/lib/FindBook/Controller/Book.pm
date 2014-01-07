@@ -77,7 +77,29 @@ sub list :Local :Args(1) {
         return;
     }
     my $book_hr = $c->forward('list_book', [$book_row]);
-    $c->stash(book => $book_hr);
+    my $tag_row = $book_row->tags->first;
+    my $count = $c->model('FindBookDB::Book')->search(
+    {
+        'book_tags.tag_id' => $tag_row->id, 
+        id => {'!=', $book_row->id}
+    }, 
+    {
+        join => 'book_tags',
+    })->count;
+    $count = $count < 9 ? $count : $count - 9;
+    my $offset = int(rand($count));
+    my @other_book_rows = $c->model('FindBookDB::Book')->search(
+    {
+        'book_tags.tag_id' => $tag_row->id, 
+        id => {'!=', $book_row->id },
+    }, 
+    {
+        join => 'book_tags',
+        offset => $offset,
+        rows => 10,
+    });
+    my @other_books = map {$c->forward('list_book_pic', [$_])} @other_book_rows;
+    $c->stash(book => $book_hr, other_books => \@other_books);
     $c->stash(template => "src/book_list.tt");
 }
 
@@ -221,6 +243,17 @@ sub list_book_summary :Private {
         pic     => $book_row->pic,
         isbn    => $book_row->isbn,
         summary => $summary,
+    };
+}
+
+sub list_book_pic :Private {
+    my ( $self, $c ) = @_;
+    my $book_row = $c->req->args->[0];
+
+    return {
+        isbn    => $book_row->isbn,
+        pic     => $book_row->pic,
+        title   => $book_row->title,
     };
 }
 

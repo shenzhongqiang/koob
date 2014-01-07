@@ -282,6 +282,27 @@ button.btn-modal-close{
 .book-desc{
     width:100%;
 }
+
+.other-books{
+    width:100%;
+    margin-top: 20px;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 20px;
+}
+div.oth-bk {
+    float:left;
+    width:90px;
+    height:130px;
+    padding-left:24px;
+    padding-right:24px;
+    padding-bottom:80px;
+    text-align:center;
+}
+img.oth-bk-img {
+    display:block;
+    width:80px;
+    height:120px;
+}
 .error {
     margin-top:60px;
     width:50%;
@@ -711,6 +732,10 @@ button.btn-modal-close{
 .cat-main{
     width:100%;
     margin-left:0px;
+}
+div.oth-bk {
+    float:left;
+    width:82px;
 }
 }
 

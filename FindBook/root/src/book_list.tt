@@ -37,7 +37,7 @@
     
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object pic-resize" src="/static/pics/[% book.pic %]">
+                        <img class="media-object pic-resize" src="/static/pics/[% book.pic %]" alt="[% book.title %]">
                     </a>
                     <div>
                         <h4 class="book-title">[% book.title %]</h4>
@@ -82,6 +82,17 @@
                     [% FOREACH i IN book.author_intro %]
                     <p class="small">[% i %]</p>
                     [% END %]
+                    [% END %]
+                </div>
+
+                <div class="other-books clearfix">
+                    <p class="text-warning">看看其他</p>
+                    [% FOREACH i IN other_books %]
+                    [% url = c.uri_for_action("/book/list", [i.isbn]) %]
+                    <div class="oth-bk">
+                        <a href="[% url %]"><img src="/static/pics/[% i.pic %]" class="img-polaroid oth-bk-img" alt="[% i.title %]"></img></a>
+                        <a href="[% url %]"><small>[% i.title %]</small></a>
+                    </div>
                     [% END %]
                 </div>
             </div>
