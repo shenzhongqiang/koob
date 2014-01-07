@@ -106,7 +106,13 @@ sub subcat :Local :Args(1) {
     my $subcat = $c->req->arguments->[0];
     my $page_no = $c->req->params->{page_no} || 1;
 
-    my $book_count = $c->model('FindBookDB::Book')->search({'tag.subcat' => $subcat}, {join => {'book_tags' => 'tag'}})->count;
+    my $tag_row = $c->model('FindBookDB::Tag')->find({subcat => $subcat});
+    if(!defined $tag_row) {
+        my $error = "没有找到\"$subcat\"相关的书单哦";
+        $c->stash(error => $error, template => "src/error.tt");
+        return;
+    }
+    my $book_count = $c->model('FindBookDB::Book')->search({'tag.id' => $tag_row->id}, {join => {'book_tags' => 'tag'}})->count;
     my $pages = int(($book_count - 1) / 10) + 1;
     my $url = $c->uri_for_action('recommend/subcat', $subcat);
 
@@ -117,12 +123,6 @@ sub subcat :Local :Args(1) {
     my $prev_page_url = $c->forward('make_link', [$url, $prev_page_no]);
     my $next_page_url = $c->forward('make_link', [$url, $next_page_no]);
 
-    my $tag_row = $c->model('FindBookDB::Tag')->find({subcat => $subcat});
-    if(!defined $tag_row) {
-        my $error = "没有找到\"$subcat\"相关的书单哦";
-        $c->stash(error => $error, template => "src/error.tt");
-        return;
-    }
     my $catalog = $tag_row->catalog;
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
     my @subcats = $c->model('FindBookDB::Tag')->search({catalog => $catalog}, {order_by => 'id'})->get_column('subcat')->all;
