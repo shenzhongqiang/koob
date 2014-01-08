@@ -38,7 +38,7 @@ sub index :Path :Args(0) {
     my $prev_page_url = $c->forward('make_link', ['/recommend/index', $prev_page_no]);
     my $next_page_url = $c->forward('make_link', ['/recommend/index', $next_page_no]);
     my @book_rows = $c->model('FindBookDB::Book')->search(undef, {
-        prefetch => {'book_tags' => 'tag'},
+        prefetch => 'tag',
         order_by => {-desc => 'rating'}, 
         page => $page_no, 
         rows => 10});
@@ -65,7 +65,7 @@ sub catalog :Local :Args(1) {
 
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
     my @subcats = $c->model('FindBookDB::Tag')->search({catalog => $catalog}, {order_by => 'id'})->get_column('subcat')->all;
-    my $book_count = $c->model('FindBookDB::BookTag')->search({'tag.catalog' => $catalog}, {join => 'tag'})->count;
+    my $book_count = $c->model('FindBookDB::Book')->search({'tag.catalog' => $catalog}, {join => 'tag'})->count;
     my $pages = int(($book_count - 1) / 10) + 1;
     my $url = $c->uri_for_action('recommend/catalog', $catalog);
 
@@ -77,7 +77,7 @@ sub catalog :Local :Args(1) {
     my $next_page_url = $c->forward('make_link', [$url, $next_page_no]);
 
     my @book_rows = $c->model('FindBookDB::Book')->search({'tag.catalog' => $catalog}, {
-        prefetch => {'book_tags' => 'tag'},
+        prefetch => 'tag',
         order_by => {-desc => 'rating'}, 
         page => $page_no, 
         rows => 10,
@@ -112,7 +112,7 @@ sub subcat :Local :Args(1) {
         $c->stash(error => $error, template => "src/error.tt");
         return;
     }
-    my $book_count = $c->model('FindBookDB::Book')->search({'tag.id' => $tag_row->id}, {join => {'book_tags' => 'tag'}})->count;
+    my $book_count = $c->model('FindBookDB::Book')->search({'tag_id' => $tag_row->id})->count;
     my $pages = int(($book_count - 1) / 10) + 1;
     my $url = $c->uri_for_action('recommend/subcat', $subcat);
 
@@ -126,8 +126,8 @@ sub subcat :Local :Args(1) {
     my $catalog = $tag_row->catalog;
     my @catalogs = $c->model('FindBookDB::Tag')->search(undef, {order_by => 'catalog', distinct => 'catalog'})->get_column('catalog')->all;
     my @subcats = $c->model('FindBookDB::Tag')->search({catalog => $catalog}, {order_by => 'id'})->get_column('subcat')->all;
-    my @book_rows = $c->model('FindBookDB::Book')->search({'tag.id' => $tag_row->id}, {
-        prefetch => {'book_tags' => 'tag'},
+    my @book_rows = $c->model('FindBookDB::Book')->search({'tag_id' => $tag_row->id}, {
+        prefetch => 'tag',
         order_by => {-desc => 'rating'}, 
         page => $page_no, 
         rows => 10,

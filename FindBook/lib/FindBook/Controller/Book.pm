@@ -77,24 +77,20 @@ sub list :Local :Args(1) {
         return;
     }
     my $book_hr = $c->forward('list_book', [$book_row]);
-    my $tag_row = $book_row->tags->first;
+    my $tag_row = $book_row->tag;
     my $count = $c->model('FindBookDB::Book')->search(
     {
-        'book_tags.tag_id' => $tag_row->id, 
+        'tag_id' => $tag_row->id, 
         id => {'!=', $book_row->id}
-    }, 
-    {
-        join => 'book_tags',
     })->count;
     $count = $count < 9 ? $count : $count - 9;
     my $offset = int(rand($count));
     my @other_book_rows = $c->model('FindBookDB::Book')->search(
     {
-        'book_tags.tag_id' => $tag_row->id, 
+        'tag_id' => $tag_row->id, 
         id => {'!=', $book_row->id },
     }, 
     {
-        join => 'book_tags',
         offset => $offset,
         rows => 10,
     });
@@ -147,10 +143,7 @@ sub add :Local :Args(0) {
         pic         => $pic,
         description => $desc,
         author_intro=> $author_intro,
-    });
-    $c->model('FindBookDB::BookTag')->create({
-        book_id => $book_row->id,
-        tag_id  => $tag_row->id,
+        tag_id      => $tag_row->id,
     });
     
     $c->res->redirect('/book');
@@ -185,7 +178,7 @@ sub list_book :Private {
     my ( $self, $c ) = @_;
     my $book_row = $c->req->args->[0];
     
-    my $tag_row = $book_row->tags->first;
+    my $tag_row = $book_row->tag;
     my $rating = $book_row->rating || 0;
     $rating = rating_as_string($rating);
     my @desc_para = split /\n/, $book_row->description;
@@ -232,7 +225,7 @@ sub list_book_summary :Private {
     my $rating = $book_row->rating || 0;
     $rating = rating_as_string($rating);
     my $producer = join(" / ", @producer);
-    my $tag_row = $book_row->tags->first;
+    my $tag_row = $book_row->tag;
     return {
         id      => $book_row->id,
         catalog => $tag_row->catalog,

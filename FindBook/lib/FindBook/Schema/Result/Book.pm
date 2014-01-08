@@ -45,11 +45,12 @@ __PACKAGE__->add_columns(
   { data_type => "int", is_nullable => 1},
   "author_intro",
   { data_type => "text", is_nullable => 1},
+  "tag_id",
+  { data_type => "int", is_nullable => 1},
 );
 
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->has_many("book_tags", "FindBook::Schema::Result::BookTag", {"foreign.book_id" => "self.id"});
-__PACKAGE__->many_to_many("tags", "book_tags", "tag");
+__PACKAGE__->belongs_to("tag", "FindBook::Schema::Result::Tag", {"foreign.id" => "self.tag_id"});
 
 
 # Created by DBIx::Class::Schema::Loader v0.07014 @ 2013-03-17 18:18:10

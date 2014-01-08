@@ -80,10 +80,7 @@ sub import_books {
                         pic         => $pic,
                         description => $book_hr->{description},
                         author_intro=> $book_hr->{author_intro},
-                    });
-                    $schema->resultset("BookTag")->create({
-                        book_id => $book_row->id,
-                        tag_id  => $tag_row->id,
+                        tag_id      => $tag_row->id,
                     });
                     $guard->commit;
                     print now(), " - created $isbn\n";
