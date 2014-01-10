@@ -85,7 +85,7 @@ sub list :Local :Args(1) {
     })->count;
     $count = $count < 9 ? $count : $count - 9;
     my $offset = int(rand($count));
-    my @other_book_rows = $c->model('FindBookDB::Book')->search(
+    my @other_book_ids = $c->model('FindBookDB::Book')->search(
     {
         'tag_id' => $tag_row->id, 
         id => {'!=', $book_row->id },
@@ -93,7 +93,8 @@ sub list :Local :Args(1) {
     {
         offset => $offset,
         rows => 10,
-    });
+    })->get_column('id')->all;
+    my @other_book_rows = $c->model('FindBookDB::Book')->search({ 'me.id' => {-in => \@other_book_ids}});
     my @other_books = map {$c->forward('list_book_pic', [$_])} @other_book_rows;
     $c->stash(book => $book_hr, other_books => \@other_books);
     $c->stash(template => "src/book_list.tt");
