@@ -162,12 +162,6 @@ sub del :Local :Args(1) {
 
     my $isbn = $c->req->arguments->[0];
     
-    $c->model('FindBookDB::BookTag')->search({
-        'book.isbn' => $isbn,
-    },
-    {
-        join => 'book',
-    })->delete;
     $c->model('FindBookDB::Book')->search({
         isbn => $isbn,
     })->delete;
