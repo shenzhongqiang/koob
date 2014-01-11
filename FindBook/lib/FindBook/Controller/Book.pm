@@ -127,12 +127,50 @@ sub add :Local :Args(0) {
     my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
     my $book_row = $c->model('FindBookDB::Book')->find({isbn => $isbn});
     if(defined $book_row) {
-        $c->session->{error} = "Book $isbn already exists";
-        $c->res->redirect('/error');
-        return;
+        print "to update\n";
+        $c->detach('update', [$book_row]);
     }
 
     $book_row = $c->model('FindBookDB::Book')->create({
+        isbn        => $isbn,
+        title       => $title,
+        rating      => $rating,
+        author      => $author,
+        translator  => $translator,
+        publisher   => $publisher,
+        pubdate     => $pubdate,
+        pages       => $pages,
+        pic         => $pic,
+        description => $desc,
+        author_intro=> $author_intro,
+        tag_id      => $tag_row->id,
+    });
+    
+    $c->res->redirect('/book');
+}
+
+sub update :Local :Args(1) {
+    my ( $self, $c ) = @_;
+    
+    my $book_row = $c->req->args->[0];
+
+    my $catalog = $c->req->params->{catalog};
+    my $subcat = $c->req->params->{subcat};
+    my $isbn = $c->req->params->{isbn};
+    my $title = $c->req->params->{title};
+    my $rating = $c->req->params->{rating};
+    my $author = $c->req->params->{author};
+    my $translator = $c->req->params->{translator};
+    my $publisher = $c->req->params->{publisher};
+    my $pubdate = $c->req->params->{pubdate};
+    my $pages = $c->req->params->{pages};
+    my $pic = $c->req->params->{pic};
+    my $desc = $c->req->params->{description};
+    my $author_intro = $c->req->params->{author_intro};
+    
+    my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
+    print "$catalog,$title\n";
+    $book_row->update({
         isbn        => $isbn,
         title       => $title,
         rating      => $rating,
