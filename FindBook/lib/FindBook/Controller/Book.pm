@@ -127,7 +127,6 @@ sub add :Local :Args(0) {
     my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
     my $book_row = $c->model('FindBookDB::Book')->find({isbn => $isbn});
     if(defined $book_row) {
-        print "to update\n";
         $c->detach('update', [$book_row]);
     }
 
@@ -167,21 +166,8 @@ sub update :Local :Args(1) {
     my $pic = $c->req->params->{pic};
     my $desc = $c->req->params->{description};
     my $author_intro = $c->req->params->{author_intro};
-    
     my $tag_row = $c->model('FindBookDB::Tag')->find({catalog => $catalog, subcat => $subcat});
-    print "$catalog,$title\n";
     $book_row->update({
-        isbn        => $isbn,
-        title       => $title,
-        rating      => $rating,
-        author      => $author,
-        translator  => $translator,
-        publisher   => $publisher,
-        pubdate     => $pubdate,
-        pages       => $pages,
-        pic         => $pic,
-        description => $desc,
-        author_intro=> $author_intro,
         tag_id      => $tag_row->id,
     });
     
