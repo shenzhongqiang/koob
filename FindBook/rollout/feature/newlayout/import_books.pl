@@ -63,7 +63,6 @@ sub import_books {
                 my $book_row = $schema->resultset("Book")->find({isbn => $isbn});
                 if(defined $book_row) {
                     print now(), " - $isbn already exists\n";
-                    my $bt_row = $schema->resultset("BookTag")->find_or_create({book_id => $book_row->id, tag_id => $tag_row->id});
                 }
                 if(!defined $book_row) {
                     my $pic = basename($book_hr->{img_url});
