@@ -50,6 +50,9 @@ sub parse_resp {
     $book{isbn} = $isbn;
     if(defined $data_hr->{rating}) {
         $book{rating} = $data_hr->{rating}->{average} || 0.0;
+        if($data_hr->{rating}->{numRaters} < 100) {
+            $book{rating} = 0.0;
+        }
     }
     if(defined $data_hr->{image}) {
         my $img_url = $data_hr->{image};

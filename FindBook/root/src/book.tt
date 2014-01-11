@@ -5,9 +5,6 @@
     [% INCLUDE src/html_head.tt %]
     <script>
         var tags = [% tags %];
-        $(document).ready(function() {
-            book.init();
-        });
     </script>
 </head>
 <body>

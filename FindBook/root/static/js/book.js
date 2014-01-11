@@ -41,7 +41,7 @@ var book = {
                 }
 
                 var book = data.book;
-                var rating = (book.rating == 0.0) ? 8.0 : book.rating;
+                var rating = book.rating;
                 $('input[name="title"]').val(book.title);
                 $('input[name="author"]').val(book.author);
                 $('input[name="translator"]').val(book.translator);

@@ -28,5 +28,6 @@
     $(document).ready(function() {
         search.init();
         feedback.init();
+        book.init();
     });
 </script>
