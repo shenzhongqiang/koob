@@ -152,10 +152,15 @@ div.logo-container{
     margin-bottom:150px;
 }
 .search-main{
+    margin-top:20px;
+    float:left;
     width:55%;
 }
-.top-form-container{
+.ad-main {
     margin-top:20px;
+    float:left;
+    margin-left:10%;
+    width:35%;
 }
 
 .top-form-container .top-form{
