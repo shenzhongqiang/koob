@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>[% book.title %] - iFindBook</title>
-    <meta name="description" content="作者: [% book.author %],出版社: [% book.publisher %],简介: [% book.summary %]" />
+    <meta name="description" content="作者: [% book.author %],简介: [% book.summary %]" />
     <meta name="keywords" content="[% book.catalog %],[% book.subcat %],[% book.title %],[% book.author %],[% book.publisher %]" />
     [% INCLUDE src/html_head.tt %]
     <script>
@@ -26,23 +26,26 @@
         </div>
         
         <div class="container">
-            <div class="book-main">
+            <div class="book-main" itemscope itemtype="http://data-vocabulary.org/Product">
                 <ul class="breadcrumb book-breadcrumb">
-                    <li><a href="[% c.uri_for_action('/recommend/index') %]">书单首页</a><span class="divider"> &gt;</span></li>  
-                    <li><a href="[% c.uri_for_action('/recommend/catalog') %]/[% book.catalog %]">[% book.catalog %]</a><span class="divider"> &gt;</span></li>  
-                    <li><a href="[% c.uri_for_action('/recommend/subcat') %]/[% book.subcat %]">[% book.subcat %]</a><span class="divider"> &gt;</span></li>  
+                    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="[% c.uri_for_action('/recommend/index') %]" itemprop="url">书单首页</a><span class="divider"> &gt;</span></li>  
+                    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="[% c.uri_for_action('/recommend/catalog') %]/[% book.catalog %]" itemprop="url">[% book.catalog %]</a><span class="divider"> &gt;</span></li>  
+                    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="[% c.uri_for_action('/recommend/subcat') %]/[% book.subcat %]" itemprop="url">[% book.subcat %]</a><span class="divider"> &gt;</span></li>  
                     <li class="active">[% book.title %]</li>  
                 </ul>
                     
     
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object pic-resize" src="/static/pics/[% book.pic %]" alt="[% book.title %]">
+                        <img class="media-object pic-resize" src="/static/pics/[% book.pic %]" alt="[% book.title %]" itemprop="image">
                     </a>
                     <div>
-                        <h4 class="book-title">[% book.title %]</h4>
+                        <h4 class="book-title" itemprop="description">[% book.title %]</h4>
+                        <meta itemprop="identifier" content="isbn:[% book.isbn %]" />
                         <div class="media">
-                            <span class="rating[% book.rating %]"></span><br>
+                            <div itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+                            <span class="rating[% book.rating %]" itemprop="rating" content="[% book.rating / 10 %]"></span>
+                            </div>
                             <span class="small">作者: [% book.author %]</span><br>
                             [% IF book.translator %]
                             <span class="small">译者: [% book.translator %]</span><br>
@@ -72,9 +75,11 @@
                 <div class="book-desc">
                     [% IF book.description.size != 0 %]
                     <p class="text-warning">内容简介</p>
-                    [% FOREACH i IN book.description %]
-                    <p class="small">[% i %]</p>
-                    [% END %]
+                    <div itemprop="description">
+                        [% FOREACH i IN book.description %]
+                        <p class="small">[% i %]</p>
+                        [% END %]
+                    </div>
                     [% END %]
                     [% IF book.author_intro.size != 0 %]
                     <br>
@@ -95,6 +100,10 @@
                     </div>
                     [% END %]
                 </div>
+            </div>
+            <div class="book-ad-main">
+                <a data-type="3" data-tmpl="200x200" data-tmplid="197" data-rd="1" data-style="2" data-border="1" href="#"></a>
+<script type="text/javascript"> (function(win,doc){ var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0]; if (!win.alimamatk_show) { s.charset = "gbk"; s.async = true; s.src = "http://a.alimama.cn/tkapi.js"; h.insertBefore(s, h.firstChild); }; var o = { pid: "mm_11589617_5150459_16096545",/*推广单元ID，用于区分不同的推广渠道*/ appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/ unid: ""/*自定义统计字段*/ }; win.alimamatk_onload = win.alimamatk_onload || []; win.alimamatk_onload.push(o); })(window,document);</script>
             </div>
         </div>
     </div>
