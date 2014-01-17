@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Moose;
 use LWP::UserAgent;
+use URI::Escape;
 use Try::Tiny;
 use JSON;
 use namespace::autoclean;
@@ -125,7 +126,8 @@ sub build_url {
         num         => $num,
     };
     
-    my @params = map { $_ . "=" . $param_hr->{$_} } keys %$param_hr;
+    my @params = map { uri_escape($_) . "=" . 
+                 uri_escape($param_hr->{$_}) } keys %$param_hr;
     my $param_s = join("&", @params);
 
     my $req_url = $base_url . $param_s;
