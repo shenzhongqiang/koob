@@ -9,6 +9,7 @@ use DbBook;
 use JSON;
 use File::Basename;
 use Try::Tiny;
+use URI::Escape;
 use POSIX qw/strftime/;
 
 my $TAG_FILE = dirname(__FILE__) . "/tag";
@@ -47,9 +48,11 @@ sub import_books {
     my $tag = $tag_row->subcat;
     my $start = 0;
     my $count = 100;
-    my $url_pattern = "https://api.douban.com/v2/book/search?" . "tag=$tag&start=%s&count=$count";
+    $tag = uri_escape($tag);
+    my $url_pattern = "https://api.douban.com/v2/book/search?" . "q=$tag&count=$count";
     while(1) {
-        my $url = sprintf($url_pattern, $start);
+        my $url = $url_pattern . "&start=$start";
+        print "$url\n";
         my $resp = Request::send_request($url);
         my $data_hr = from_json($resp);
         my $books_ar = $data_hr->{books};
@@ -91,6 +94,7 @@ sub import_books {
             };
         }
         if($data_hr->{count} < $count) {
+            print "$start, $count, ", $data_hr->{count}, "\n";
             last;
         }
         $start += $count;
