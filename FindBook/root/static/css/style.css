@@ -156,7 +156,7 @@ div.logo-container{
     float:left;
     width:55%;
 }
-.ad-main {
+.srch-ad-main {
     margin-top:20px;
     float:left;
     margin-left:10%;
@@ -319,9 +319,16 @@ img.oth-bk-img {
     height:145px;
 }
 .book-main{
+    float:left;
     margin-top:20px;
     margin-bottom:150px;
     width:60%;
+}
+.book-ad-main {
+    float:left;
+    margin-top:20px;
+    margin-left:10%;
+    width:30%;
 }
 .book-breadcrumb{
     background-color:transparent;
@@ -566,7 +573,11 @@ a.search-logo{
 }
 
 .search-main{
-    width:100%;
+    width:70%;
+}
+.srch-ad-main{
+    margin-left:5%;
+    width:25%;
 }
 .top-form-container{
     width:100%;
@@ -666,7 +677,7 @@ div.logo-container{
 
 .search-main{
     width:90%;
-    margin-left:auto;
+    margin-left:10px;
     margin-right:auto;
 }
 .top-form-container{

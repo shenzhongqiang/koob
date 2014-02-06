@@ -78,7 +78,10 @@
                         <div class="media-body">
                             <p class="media-heading"><a href=[% book_url %]>[% i.title %]</a></p>
                             <p class="muted small">[% i.producer %]</p>
-                            <p><span class="rating[% i.rating %]"></span></p>
+                            <p itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">
+                                <span class="rating[% i.rating %]" itemprop="rating" content="[% i.rating / 10 %]"></span>
+                                <meta itemprop="best" content="10" />
+                            </p>
                             <p class="small">[% i.summary %]...</p>
                         </div>
                     </div>

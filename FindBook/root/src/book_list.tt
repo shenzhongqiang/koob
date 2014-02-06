@@ -42,6 +42,7 @@
                     <div>
                         <h4 class="book-title" itemprop="description">[% book.title %]</h4>
                         <meta itemprop="identifier" content="isbn:[% book.isbn %]" />
+                        <meta itemprop="availability" content="in_stock" />
                         <div class="media">
                             <div itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
                             <span class="rating[% book.rating %]" itemprop="rating" content="[% book.rating / 10 %]"></span>
