@@ -9,7 +9,7 @@ use Module::Install::Catalyst; # Complain loudly if you don't have
 name 'FindBook';
 all_from 'lib/FindBook.pm';
 
-requires 'Catalyst::Runtime' => '5.90007';
+requires 'Catalyst::Runtime' => '5.8';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
